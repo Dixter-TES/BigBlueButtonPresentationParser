@@ -25,7 +25,16 @@ namespace BigBlueButtonPresentationParser
             Console.CursorVisible = false;
 
             string tempPdfFile = ParseAndGeneratePresentation(url);
+
+            if(tempPdfFile == null)
+            {
+                WriteLine("Не удалось получить ни одного слайда", ConsoleColor.Red);
+                Exit();
+                return;
+            }
+
             WriteLine("Выберите место для сохранения PDF-файла", ConsoleColor.Yellow);
+
             SaveFileDialog saveDialog = new SaveFileDialog();
             saveDialog.FileName = tempPdfFile;
             saveDialog.Filter = "PDF-Файлы|*.pdf";
@@ -43,13 +52,23 @@ namespace BigBlueButtonPresentationParser
 
             Console.WriteLine("Нажмите Enter для выхода...");
             Console.ReadLine();
-            Environment.Exit(0);
-            Process.GetCurrentProcess().Kill();
+            Process.GetCurrentProcess().CloseMainWindow();
+        }
+
+        private static void Exit()
+        {
+            Console.WriteLine("Нажмите Enter для выхода...");
+            Console.ReadLine();
+            Process.GetCurrentProcess().CloseMainWindow();
         }
 
         private static async void MoveFileAsync(string source, string destination)
         {
-            await Task.Run(() => File.Move(source, destination));
+            await Task.Run(() => {
+                var bytes = File.ReadAllBytes(source);
+                File.WriteAllBytes(destination, bytes);
+                File.Delete(source);
+            });
         }
 
         private static string ParseAndGeneratePresentation(string url)
@@ -81,7 +100,7 @@ namespace BigBlueButtonPresentationParser
 
             WriteLine("Количество слайдов: " + count, ConsoleColor.Yellow);
             WriteLine("Началось скачивание слайдов...", ConsoleColor.Yellow);
-            LoadingBar downloadLoadingBar = new LoadingBar(1, count - 1, 50, ConsoleColor.Red);
+            LoadingBar downloadLoadingBar = new LoadingBar(1, count - 1, 100, ConsoleColor.Red);
             Console.WriteLine();
             for (int i = 1; i < count; i++)
             {
@@ -100,9 +119,10 @@ namespace BigBlueButtonPresentationParser
                     scrs.Add(imgPath);
                     downloadLoadingBar.Update(i);
                 }
-                catch
+                catch(Exception ex)
                 {
-                    break;
+                    WriteLine("Произошла ошибка при скачивании слайдов: " + ex.Message, ConsoleColor.Red);
+                    return null;
                 }
             }
 
@@ -113,7 +133,7 @@ namespace BigBlueButtonPresentationParser
                 return null;
 
             WriteLine("Объединяем слайды в PDF-файл...", ConsoleColor.Yellow);
-            LoadingBar savingLoadingBar = new LoadingBar(1, count, 50, ConsoleColor.Cyan);
+            LoadingBar savingLoadingBar = new LoadingBar(1, count, 100, ConsoleColor.Cyan);
             Console.WriteLine();
 
             Image im = Image.GetInstance(scrs[0]);
