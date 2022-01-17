@@ -43,6 +43,12 @@ namespace BigBlueButtonPresentationParser
             return _currentValue;
         }
 
+        public void SetMinValue(double newValue)
+        {
+            if (newValue < _maxValue)
+                _minValue = newValue;
+        }
+
         public void SetMaxValue(double newValue)
         {
             if (newValue > _minValue)
@@ -75,7 +81,7 @@ namespace BigBlueButtonPresentationParser
             {
                 int startIndex = (int)_colorParts[i][0];
                 ConsoleColor color = (ConsoleColor)_colorParts[i][1];
-                int length = 0;
+                int length;
 
                 if (i < _colorParts.Count - 1)
                     length = (int)_colorParts[i + 1][0];

@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="LoadingBar.cs" />
     <Compile Include="MathExtension.cs" />
+    <Compile Include="PresentationParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
