@@ -48,7 +48,9 @@ namespace BigBlueButtonPresentationParser
 
             Program.WriteLine("Количество слайдов: " + count, ConsoleColor.Yellow);
             Program.WriteLine("Началось скачивание слайдов...", ConsoleColor.Yellow);
-            LoadingBar downloadLoadingBar = new LoadingBar(1, count - 1, 100, ConsoleColor.Red);
+            LoadingBarVisualization vis = new LoadingBarVisualization();
+            vis.FillColor = ConsoleColor.Red;
+            LoadingBar downloadLoadingBar = new LoadingBar(1, count - 1, visualization: vis);
             Console.WriteLine();
             for (int i = 1; i < count; i++)
             {

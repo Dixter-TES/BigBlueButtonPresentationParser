@@ -97,7 +97,10 @@ namespace BigBlueButtonPresentationParser
 
         private static string GeneratePresentationDocument(string[] images)
         {
-            LoadingBar savingLoadingBar = new LoadingBar(1, images.Length, 100, ConsoleColor.Cyan);
+            LoadingBarVisualization vis = new LoadingBarVisualization();
+            vis.FillColor = ConsoleColor.Cyan;
+
+            LoadingBar savingLoadingBar = new LoadingBar(1, images.Length, visualization: vis);
             Console.WriteLine();
 
             Image im = Image.GetInstance(images[0]);
