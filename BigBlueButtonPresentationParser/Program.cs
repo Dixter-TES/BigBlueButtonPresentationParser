@@ -20,11 +20,13 @@ namespace BigBlueButtonPresentationParser
         {
             Console.Write("Введите базовую ссылку: ");
             string url = Console.ReadLine();
+            string[] parts = url.Split('/');
+            url = string.Join("/", parts.Take(parts.Length - 1).ToArray());
 
             WriteLine("Запускаем виртуальный браузер...", ConsoleColor.Yellow);
             Console.CursorVisible = false;
 
-            string tempPdfFile = MakePresentation(url);
+            string tempPdfFile = MakePresentation(url + "/");
 
             if(tempPdfFile == null)
             {
