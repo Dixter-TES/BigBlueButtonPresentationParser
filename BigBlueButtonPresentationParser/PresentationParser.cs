@@ -52,7 +52,7 @@ namespace BigBlueButtonPresentationParser
             vis.FillColor = ConsoleColor.Red;
             LoadingBar downloadLoadingBar = new LoadingBar(1, count - 1, visualization: vis);
             Console.WriteLine();
-            for (int i = 1; i < count; i++)
+            for (int i = 1; i <= count; i++)
             {
                 try
                 {
