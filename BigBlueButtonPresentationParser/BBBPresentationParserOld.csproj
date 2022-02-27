@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7AB5302E-71C9-413A-A3B5-4D854E8B699F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>BigBlueButtonPresentationParser</RootNamespace>
     <AssemblyName>BBB Presentation Parser</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
@@ -37,6 +37,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">

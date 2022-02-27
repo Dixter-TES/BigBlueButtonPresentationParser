@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\closeButton.png" />
+    <None Remove="Resources\darkBlank.png" />
+    <None Remove="Resources\icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\closeButton.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\darkBlank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.1.0" />
+    <PackageReference Include="WebDriverManager" Version="2.12.3" />
+  </ItemGroup>
+
+</Project>

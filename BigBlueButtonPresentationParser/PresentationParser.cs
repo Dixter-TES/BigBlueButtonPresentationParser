@@ -15,17 +15,18 @@ namespace BigBlueButtonPresentationParser
 
         public PresentationParser(string baseUrl)
         {
-            _baseUrl = baseUrl;
+            _baseUrl = baseUrl; // https://mwebinar.bsu.edu.ru/bigbluebutton/presentation/d4e277644f0d0339cff9d4f2f13362ec5927c892-1645440566435/d4e277644f0d0339cff9d4f2f13362ec5927c892-1645440566435/e86dfad4f5acd918badeb55159d4b353352ceb24-1645441712126/svg/6
         }
 
         public string[] Parse()
         {
             EdgeOptions options = new EdgeOptions();
             options.AddArgument("--headless");
+            // options.BinaryLocation = @"EdgePortable\EdgePortable.exe";
 
             _browser = new EdgeDriver(options);
 
-            _browser.Manage().Window.Size = new System.Drawing.Size(1920, 1080);
+            _browser.Manage().Window.Size = new System.Drawing.Size(3000, 3000);
             var scrs = new List<string>();
 
             int count = 0;
@@ -60,8 +61,9 @@ namespace BigBlueButtonPresentationParser
                     if (_browser.PageSource.Contains("404 Not Found"))
                         break;
 
-                    int width = _browser.FindElement(By.Id("surface1")).Size.Width;
-                    int height = _browser.FindElement(By.Id("surface1")).Size.Height;
+                    var slideBody = _browser.FindElement(By.Id("surface1"));
+                    int width = slideBody.Size.Width + slideBody.Location.X * 2;
+                    int height = slideBody.Size.Height + slideBody.Location.Y;
                     _browser.Manage().Window.Size = new System.Drawing.Size(width + 10, height + 50);
                     var scr = _browser.GetScreenshot();
                     string imgPath = $"{DateTime.Now.Ticks + i}.jpg";

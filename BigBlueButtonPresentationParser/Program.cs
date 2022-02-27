@@ -128,6 +128,5 @@ namespace BigBlueButtonPresentationParser
             doc.Close();
             return filename;
         }
-
     }
 }
