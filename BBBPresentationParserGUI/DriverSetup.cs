@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 
@@ -61,12 +62,13 @@ namespace BBBPresentationParserGUI
 
         public static (bool copatibility, Type? driver) CheckCopatibility()
         {
-            string?[] browsers = GetBrowsers();
+            string[]? browsers = GetBrowsers();
+
+            if (browsers is null)
+                return (false, null);
+
             foreach (var browser in browsers)
             {
-                if (browser == null)
-                    continue;
-
                 string lowerBrowser = browser.ToLower();
                 DriverManager manager = new DriverManager();
 
@@ -85,27 +87,29 @@ namespace BBBPresentationParserGUI
                     manager.SetUpDriver(new FirefoxConfig());
                     return (true, typeof(FirefoxDriver));
                 }
-                else
-                {
-                    return (false, null);
-                }
             }
 
             return (false, null);
         }
 
-        private static string?[] GetBrowsers()
+        private static string[]? GetBrowsers()
         {
+            var osVer = Environment.OSVersion.Version;
             string browsersRegistryKeyPath = @"SOFTWARE\WOW6432Node\Clients\StartMenuInternet";
-            List<string?> browsers = new List<string?>();
+
+            if (osVer.Major == 6 && osVer.Minor == 1)
+                browsersRegistryKeyPath = @"SOFTWARE\Wow6432Node\Clients\StartMenuInternet";
+
+            List<string> browsers = new List<string>();
 
             using (RegistryKey browsersKey = Registry.LocalMachine.OpenSubKey(browsersRegistryKeyPath)!)
             {
-                foreach (string browserKeyName in browsersKey!.GetSubKeyNames())
+                foreach(var browser in browsersKey.GetSubKeyNames())
                 {
-                    using (RegistryKey browserKey = browsersKey?.OpenSubKey(browserKeyName)!)
+                    using (RegistryKey browserKey = browsersKey.OpenSubKey(browser + @"\shell\open\command")!)
                     {
-                        browsers.Add(browserKey?.GetValue(null)?.ToString());
+                        if (!string.IsNullOrWhiteSpace(browserKey.GetValue(null)?.ToString()))
+                            browsers.Add(browser);
                     }
                 }
             }

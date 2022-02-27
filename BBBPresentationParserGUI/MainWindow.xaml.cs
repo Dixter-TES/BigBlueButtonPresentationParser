@@ -107,6 +107,7 @@ namespace BBBPresentationParserGUI
             }
             catch (Exception ex)
             {
+                driver?.Quit();
                 MessageBox.Show("Произошла ошибка: " + ex.Message);
             }
             finally
@@ -132,6 +133,15 @@ namespace BBBPresentationParserGUI
 
             if ((bool)saveDialog.ShowDialog()!)
                 MoveFileAsync(filename, saveDialog.FileName);
+            else
+            {
+                try
+                {
+                    File.Delete(filename);
+                }
+                catch { }
+            }
+                
         }
 
         private static async void MoveFileAsync(string source, string destination)
