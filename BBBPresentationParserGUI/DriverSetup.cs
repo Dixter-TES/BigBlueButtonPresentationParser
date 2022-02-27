@@ -26,26 +26,28 @@ namespace BBBPresentationParserGUI
             if (!result.copatibility)
                 return null;
 
-            ChromiumOptions chromiumOptions = new ChromeOptions();
+            ChromeOptions chromeOptions = new ChromeOptions();
             FirefoxOptions firefoxOptions = new FirefoxOptions();
+            EdgeOptions edgeOptions = new EdgeOptions();
 
             if (headless)
             {
-                chromiumOptions.AddArgument("--headless");
+                chromeOptions.AddArgument("--headless");
                 firefoxOptions.AddArgument("--headless");
+                edgeOptions.AddArgument("--headless");
             }
 
             if (result.driver == typeof(EdgeDriver))
             {
                 var driverService = EdgeDriverService.CreateDefaultService();
                 driverService.HideCommandPromptWindow = true;
-                return new EdgeDriver(driverService, (EdgeOptions)chromiumOptions);
+                return new EdgeDriver(driverService, edgeOptions);
             }
             else if (result.driver == typeof(ChromeDriver))
             {
                 var driverService = ChromeDriverService.CreateDefaultService();
                 driverService.HideCommandPromptWindow = true;
-                return new ChromeDriver(driverService, (ChromeOptions)chromiumOptions);
+                return new ChromeDriver(driverService, chromeOptions);
             }
             else if (result.driver == typeof(FirefoxDriver))
             {
