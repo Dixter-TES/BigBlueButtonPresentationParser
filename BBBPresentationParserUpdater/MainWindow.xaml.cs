@@ -27,6 +27,7 @@ namespace BBBPresentationParserUpdater
         public MainWindow()
         {
             InitializeComponent();
+            Visibility = Visibility.Hidden;
             CheckUpdateAsync();
         }
 
@@ -41,6 +42,7 @@ namespace BBBPresentationParserUpdater
             if (!eqResult.equals)
             {
                 descTb.Text = ParseDescription(rel.Body);
+                Visibility = Visibility.Visible;
             }
             else
             {

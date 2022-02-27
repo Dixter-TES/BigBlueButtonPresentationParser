@@ -22,7 +22,7 @@ namespace BBBPresentationParserGUI
 
             await Task.Delay(1000);
 
-            if (result.copatibility)
+            if (!result.copatibility)
                 return null;
 
             ChromiumOptions chromiumOptions = new ChromeOptions();
@@ -78,7 +78,7 @@ namespace BBBPresentationParserGUI
                 else if (lowerBrowser.Contains("chrome"))
                 {
                     manager.SetUpDriver(new ChromeConfig());
-                    return (true, typeof(EdgeDriver));
+                    return (true, typeof(ChromeDriver));
                 }
                 else if (lowerBrowser.Contains("firefox"))
                 {

@@ -47,7 +47,17 @@ namespace BBBPresentationParserGUI
 
             ChangeControlState(false);
 
-            WebDriver? driver = await Task.Run(() => DriverSetup.GetSupportedDriver(true));
+            WebDriver? driver = null;
+
+            try
+            {
+                driver = await Task.Run(() => DriverSetup.GetSupportedDriver(true));
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка при проверка совместимости: " + ex.Message);
+            }
+            
 
             if (driver == null)
             {
@@ -61,37 +71,48 @@ namespace BBBPresentationParserGUI
             string[] parts = url.Split('/');
             url = string.Join("/", parts.Take(parts.Length - 1).ToArray()) + "/";
 
-            PresentationParser parser = new PresentationParser(url, driver);
-            ImageSource def = previewImg.ImageSource;
-            parser.SlideParsed += (s, e) =>
+            try
             {
-                previewImg.Dispatcher.Invoke(() =>
+                PresentationParser parser = new PresentationParser(url, driver);
+                ImageSource def = previewImg.ImageSource;
+                parser.SlideParsed += (s, e) =>
                 {
-                    var source = new BitmapImage(new Uri(Path.Combine(Directory.GetCurrentDirectory(), e)));
-                    previewImg.ImageSource = source;
-                });
-            };
+                    previewImg.Dispatcher.Invoke(() =>
+                    {
+                        var source = new BitmapImage(new Uri(Path.Combine(Directory.GetCurrentDirectory(), e)));
+                        previewImg.ImageSource = source;
+                    });
+                };
 
-            string[]? images = await parser.Parse();
-            previewImg.ImageSource = def;
+                string[]? images = await parser.Parse();
+                previewImg.ImageSource = def;
 
-            if (images is null)
+                await Task.Delay(1000);
+
+                if (images is null)
+                {
+                    ChangeControlState(true);
+                    return;
+                }
+
+                string tempPdfFile = GeneratePresentationDocument(images);
+
+                if (tempPdfFile is null)
+                {
+                    ChangeControlState(true);
+                    return;
+                }
+
+                TrySavePresentation(tempPdfFile);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка: " + ex.Message);
+            }
+            finally
             {
                 ChangeControlState(true);
-                return;
             }
-
-            string tempPdfFile = GeneratePresentationDocument(images);
-
-            if (tempPdfFile is null)
-            {
-                ChangeControlState(true);
-                return;
-            }
-
-            TrySavePresentation(tempPdfFile);
-
-            ChangeControlState(true);
         }
 
         private void ChangeControlState(bool enabled)

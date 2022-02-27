@@ -40,8 +40,20 @@ namespace BBBPresentationParserUpdater
 
             string[] dirs = Directory.GetDirectories(from);
 
-            if(!Directory.Exists(to))
-                Directory.CreateDirectory(to);
+            try
+            {
+                if (!Directory.Exists(to))
+                {
+                    Directory.CreateDirectory(to);
+                }
+                else
+                {
+                    Process.Start("cmd", $"/c timeout 1 & rmdir /s /q {to}");
+                    Directory.CreateDirectory(to);
+                }
+            }
+            catch { }
+            
 
             string tempDir = System.IO.Path.Combine(from, to);
 
@@ -70,7 +82,6 @@ namespace BBBPresentationParserUpdater
             {
                 _loadingValue = e;
                 UpdateLoadingBar();
-                Trace.WriteLine("1");
             };
 
             string? package = await Github.DownloadLatestRelease("Dixter-TES", "BigBlueButtonPresentationParser");
