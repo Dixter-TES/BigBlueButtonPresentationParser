@@ -13,7 +13,7 @@
 - Один из совместимых браузеров: Chrome, Firefox, Edge
 - [.NET 6.0 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0/runtime)
 
-Поддерживаемые версии Windows: 8.1, 10, 11
+Поддерживаемые версии Windows: 7, 10, 11
 
 [Инструкция по получению базовой ссылки](https://www.youtube.com/watch?v=UiqwdudeDQo)
 
