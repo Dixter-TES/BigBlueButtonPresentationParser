@@ -42,7 +42,9 @@ namespace BBBPresentationParserGUI
 
         private async void DownloadButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(urlInputTb.Text) || !urlInputTb.Text.StartsWith("https://") || !urlInputTb.Text.Contains("webinar.bsu.edu.ru/"))
+            if (string.IsNullOrEmpty(urlInputTb.Text) ||
+                !urlInputTb.Text.StartsWith("https://") ||
+                (!urlInputTb.Text.Contains("webinar.bsu.edu.ru/") && !urlInputTb.Text.Contains("webinar.bsu-eis.ru/")))
                 return;
 
             ChangeControlState(false);
