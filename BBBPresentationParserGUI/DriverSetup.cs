@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
+using WebDriverManager.Helpers;
 
 namespace BBBPresentationParserGUI
 {
@@ -81,7 +82,7 @@ namespace BBBPresentationParserGUI
                 }
                 else if (lowerBrowser.Contains("chrome"))
                 {
-                    manager.SetUpDriver(new ChromeConfig());
+                    manager.SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
                     return (true, typeof(ChromeDriver));
                 }
                 else if (lowerBrowser.Contains("firefox"))

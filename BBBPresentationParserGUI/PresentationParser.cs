@@ -59,25 +59,7 @@ namespace BBBPresentationParserGUI
                 _browser.Manage().Window.Size = new System.Drawing.Size(3000, 3000);
                 var scrs = new List<string>();
 
-                int count = 0;
                 for (int i = 1; i < 200; i++)
-                {
-                    try
-                    {
-                        _browser.Url = $@"{_baseUrl}{i}";
-                        if (_browser.PageSource.Contains("404 Not Found"))
-                            break;
-
-                        count++;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Произошла ошибка: " + ex.Message);
-                        break;
-                    }
-                }
-
-                for (int i = 1; i <= count; i++)
                 {
                     try
                     {

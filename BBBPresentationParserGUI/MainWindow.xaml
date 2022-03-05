@@ -29,8 +29,9 @@
                 </StackPanel>
             </Border>
 
-            <Border Style="{StaticResource ContentBoxBorderStyle}" HorizontalAlignment="Left" Margin=" 0 19 0 0" Width="258" Height="37">
-                <Button x:Name="downloadButton" Content="Скачать" VerticalAlignment="Center" Click="DownloadButton_Click"></Button>
+            <Border Style="{StaticResource ContentBoxBorderStyle}" HorizontalAlignment="Left" Margin=" 0 19 0 0" Width="258" Height="37" Cursor="Hand">
+                <Button x:Name="downloadButton" Content="Скачать" VerticalAlignment="Center" Click="DownloadButton_Click">
+                </Button>
             </Border>
         </StackPanel>
         <StackPanel HorizontalAlignment="Right" Width="400" Margin="0 30 20 0">

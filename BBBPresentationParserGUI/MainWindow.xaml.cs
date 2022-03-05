@@ -14,6 +14,7 @@ using iTextSharp.text.pdf;
 using System.Threading;
 using Image = iTextSharp.text.Image;
 using OpenQA.Selenium;
+using System.Windows.Media.Animation;
 
 namespace BBBPresentationParserGUI
 {
@@ -47,7 +48,7 @@ namespace BBBPresentationParserGUI
                 (!urlInputTb.Text.Contains("webinar.bsu.edu.ru/") && !urlInputTb.Text.Contains("webinar.bsu-eis.ru/")))
                 return;
 
-            ChangeControlState(false);
+            var token = ChangeControlState(false);
 
             WebDriver? driver = null;
 
@@ -58,12 +59,15 @@ namespace BBBPresentationParserGUI
             catch(Exception ex)
             {
                 MessageBox.Show("Произошла ошибка при проверка совместимости: " + ex.Message);
+                driver?.Quit();
+                driver?.Dispose();
             }
             
 
             if (driver == null)
             {
                 MessageBox.Show("Не найдено ни одного поддерживаемого браузера!");
+                token?.Cancel();
                 ChangeControlState(true);
                 return;
             }
@@ -93,6 +97,7 @@ namespace BBBPresentationParserGUI
 
                 if (images is null)
                 {
+                    token?.Cancel();
                     ChangeControlState(true);
                     return;
                 }
@@ -101,6 +106,7 @@ namespace BBBPresentationParserGUI
 
                 if (tempPdfFile is null)
                 {
+                    token?.Cancel();
                     ChangeControlState(true);
                     return;
                 }
@@ -109,21 +115,39 @@ namespace BBBPresentationParserGUI
             }
             catch (Exception ex)
             {
-                driver?.Quit();
                 MessageBox.Show("Произошла ошибка: " + ex.Message);
             }
             finally
             {
+                token?.Cancel();
                 ChangeControlState(true);
+                driver?.Quit();
+                driver?.Dispose();
             }
         }
 
-        private void ChangeControlState(bool enabled)
+        private CancellationTokenSource? ChangeControlState(bool enabled)
         {
             downloadButton.Content = enabled ? "Скачать" : "Идёт скачивание...";
             downloadButton.IsEnabled = enabled;
             urlInputTb.IsEnabled = enabled;
             closeButton.IsEnabled = enabled;
+
+            if (enabled)
+                return null;
+
+            CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
+            CancellationToken token = cancelTokenSource.Token;
+
+            Animation.DownloadButtonAnimation(downloadButton, new[]
+            {
+                "Идёт скачивание",
+                "Идёт скачивание.",
+                "Идёт скачивание..",
+                "Идёт скачивание..."
+            }, 500, token);
+
+            return cancelTokenSource;
         }
 
         private static void TrySavePresentation(string filename)
