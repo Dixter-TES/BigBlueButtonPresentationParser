@@ -1,7 +1,5 @@
 # Парсер презентаций BigBlueButton
-## Версия 1.2.0 Проще и быстрее!
-
-![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white) ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white)
+![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/v/tag/Dixter-TES/BigBlueButtonPresentationParser?include_prereleases)
 
 Парсер презентаций BigBlueButton позволяет вам получить готовую презентацию из конференции в BigBlueButton всего в пару кликов.
 Для того чтобы получить .pdf файл с презентацией вам необходимо выполнить всего 3 шага:
