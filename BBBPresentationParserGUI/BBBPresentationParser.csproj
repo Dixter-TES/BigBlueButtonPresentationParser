@@ -14,6 +14,7 @@
   <ItemGroup>
     <None Remove="Resources\closeButton.png" />
     <None Remove="Resources\darkBlank.png" />
+    <None Remove="Resources\DownloadCompletedSound.wav" />
     <None Remove="Resources\icon.ico" />
   </ItemGroup>
 
@@ -28,6 +29,9 @@
     <Resource Include="Resources\darkBlank.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\DownloadCompletedSound.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -37,6 +41,21 @@
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="Selenium.WebDriver" Version="4.1.0" />
     <PackageReference Include="WebDriverManager" Version="2.12.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

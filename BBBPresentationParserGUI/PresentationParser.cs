@@ -14,7 +14,7 @@ using System.Windows;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 
-namespace BBBPresentationParserGUI
+namespace BBBPresentationParser
 {
     internal class PresentationParser
     {
@@ -49,9 +49,9 @@ namespace BBBPresentationParserGUI
             catch { }
         }
 
-        public async Task<string[]?> Parse()
+        public Task<string[]?> Parse()
         {
-            return await Task.Run(() =>
+            return Task.Run(() =>
             {
                 if (_browser == null)
                     return null;

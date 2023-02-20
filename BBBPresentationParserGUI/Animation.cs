@@ -6,11 +6,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace BBBPresentationParserGUI
+namespace BBBPresentationParser
 {
     internal class Animation
     {
-        public static async void DownloadButtonAnimation(Button button, string[] text, int delay, CancellationToken token)
+        public static async void ButtonTextAnimation(Button button, string[] text, int delay, CancellationToken token)
         {
             await Task.Run(() =>
             {

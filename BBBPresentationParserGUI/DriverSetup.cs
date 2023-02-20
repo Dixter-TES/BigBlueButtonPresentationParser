@@ -14,13 +14,13 @@ using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
 
-namespace BBBPresentationParserGUI
+namespace BBBPresentationParser
 {
     internal class DriverSetup
     {
         public static async Task<WebDriver?> GetSupportedDriver(bool headless)
         {
-            var result = CheckCopatibility();
+            var result = CheckCompatibility();
 
             await Task.Delay(1000);
 
@@ -63,7 +63,7 @@ namespace BBBPresentationParserGUI
                
         }
 
-        public static (bool copatibility, Type? driver) CheckCopatibility()
+        public static (bool copatibility, Type? driver) CheckCompatibility()
         {
             string[]? browsers = GetBrowsers();
 
@@ -77,17 +77,17 @@ namespace BBBPresentationParserGUI
 
                 if (lowerBrowser.Contains("edge"))
                 {
-                    manager.SetUpDriver(new EdgeConfig());
+                    manager.SetUpDriver(new EdgeConfig(), version: VersionResolveStrategy.MatchingBrowser);
                     return (true, typeof(EdgeDriver));
                 }
                 else if (lowerBrowser.Contains("chrome"))
                 {
-                    manager.SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
+                    manager.SetUpDriver(new ChromeConfig(), version: VersionResolveStrategy.MatchingBrowser);
                     return (true, typeof(ChromeDriver));
                 }
                 else if (lowerBrowser.Contains("firefox"))
                 {
-                    manager.SetUpDriver(new FirefoxConfig());
+                    manager.SetUpDriver(new FirefoxConfig(), version: VersionResolveStrategy.MatchingBrowser);
                     return (true, typeof(FirefoxDriver));
                 }
             }
