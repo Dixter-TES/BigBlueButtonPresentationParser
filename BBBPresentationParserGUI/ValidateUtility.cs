@@ -9,10 +9,11 @@ namespace BBBPresentationParser
 {
     internal class ValidatorUtility
     {
+        private const string BBBUrlValidationPattern = @"^https?:\/\/[a-z](webinar.bsu.edu.ru\/)|(webinar.bsu\-eis.ru\/)";
+
         public static bool ValidatePresentationUrl(ref string url)
         {
-            string pattern = @"^https?:\/\/[a-z](webinar.bsu.edu.ru\/)|(webinar.bsu\-eis.ru\/)";
-            Regex regex = new Regex(pattern);
+            Regex regex = new Regex(BBBUrlValidationPattern);
 
             if (!regex.IsMatch(url))
                 return false;

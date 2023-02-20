@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using System.Reflection;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
 using System.Threading;
-using Image = iTextSharp.text.Image;
-using OpenQA.Selenium;
-using System.Windows.Media.Animation;
-using System.Collections.Generic;
 
 namespace BBBPresentationParser
 {
@@ -27,15 +19,6 @@ namespace BBBPresentationParser
         public MainWindow()
         {
             InitializeComponent();
-            //Presentation pres = new Presentation();
-            //try
-            //{
-            //    pres.Save(@"C:\Users\artem\Desktop\p1.bbbp");
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
             versionLb.Content += Assembly.GetExecutingAssembly()?.GetName()?.Version?.ToString(3) ?? "0.0.0";
         }
 

@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BBBPresentationParser
 {
@@ -52,9 +51,6 @@ namespace BBBPresentationParser
             File.WriteAllBytes(path, data.ToArray());
         }
 
-        // https://awebinar.bsu.edu.ru/bigbluebutton/presentation/458094f2fbba4eb1be4085186bd460241919222f-1647243418872/458094f2fbba4eb1be4085186bd460241919222f-1647243418872/f51a2bf320654786b0bc6d68c70388f2197b79b4-1647243691459/svg/37
-        // https://nwebinar.bsu.edu.ru/bigbluebutton/presentation/11e85a659c09a862d9cb0997fa4c5b8e36841d01-1647240583558/11e85a659c09a862d9cb0997fa4c5b8e36841d01-1647240583558/f51a2bf320654786b0bc6d68c70388f2197b79b4-1647242094893/svg/35
-
         public byte[] GetCreateTimeData()
         {
             List<byte> data = new List<byte>();
@@ -81,7 +77,6 @@ namespace BBBPresentationParser
 
         public string? SavePdf(string path)
         {
-            // return @"C:\Users\artem\Desktop\Резюме.pdf";
             if (_slides == null)
                 return null;
 
@@ -148,6 +143,8 @@ namespace BBBPresentationParser
                 if (doc != null)
                     writer.Write(File.ReadAllBytes(doc));
             }
+
+            return presentation;
         }
 
         public void Write(Presentation presentation)

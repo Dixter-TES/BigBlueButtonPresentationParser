@@ -1,11 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using PuppeteerSharp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
 
 namespace BBBPresentationParser
 {
@@ -38,15 +33,15 @@ namespace BBBPresentationParser
 
         public async void InitializeDownloadAsync(string url)
         {
-            WebDriver? driver = null;
+            IBrowser? driver = null;
 
             try
             {
-                driver = await Task.Run(() => DriverSetup.GetSupportedDriver(true));
+                driver = await DriverSetup.GetSupportedDriver(true);
             }
             catch (Exception ex)
             {
-                driver?.Quit();
+                driver?.CloseAsync();
                 driver?.Dispose();
 
                 string errorMessage = "Произошла ошибка при проверка совместимости: " + ex.Message;
@@ -83,7 +78,7 @@ namespace BBBPresentationParser
             }
             finally
             {
-                driver?.Quit();
+                driver?.CloseAsync();
                 driver?.Dispose();
             }
         }
