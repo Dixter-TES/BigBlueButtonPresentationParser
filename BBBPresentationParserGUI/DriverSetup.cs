@@ -1,5 +1,9 @@
 ﻿using PuppeteerSharp;
+using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BBBPresentationParser
 {
@@ -8,6 +12,13 @@ namespace BBBPresentationParser
         public static async Task<IBrowser?> GetSupportedDriver(bool headless)
         {
             using var browserFetcher = new BrowserFetcher();
+
+            bool haveInstalledRevisions = browserFetcher.LocalRevisions().Any();
+            if(!haveInstalledRevisions)
+            {
+                MessageBox.Show("Производится первоначальная настройка программы.\nЭто может занять несколько минут.");
+            }
+
             await browserFetcher.DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
 
             return await Puppeteer.LaunchAsync(new LaunchOptions

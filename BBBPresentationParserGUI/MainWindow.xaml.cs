@@ -29,7 +29,7 @@ namespace BBBPresentationParser
         private void DownloadButton_Click(object sender, RoutedEventArgs e)
         {
             string url = urlInputTb.Text;
-            if (!ValidateUrl(ref url))
+            if (!ValidatorUtility.ValidatePresentationUrl(ref url))
                 return;
 
             var token = ChangeControlState(false);
@@ -81,6 +81,10 @@ namespace BBBPresentationParser
             downloadManager.InitializeDownloadAsync(url);
         }
 
+        // Больше не требует установленного браузера и .NET 6
+        // Переработана система сохранения презентации
+        // Исправление багов
+
         private CancellationTokenSource? ChangeControlState(bool enabled)
         {
             downloadButton.Content = enabled ? "Скачать" : "Идёт скачивание...";
@@ -103,18 +107,6 @@ namespace BBBPresentationParser
             }, 500, token);
 
             return cancelTokenSource;
-        }
-
-        private static bool ValidateUrl(ref string url)
-        {
-            if (string.IsNullOrEmpty(url) ||
-                !url.StartsWith("https://") ||
-                (!url.Contains("webinar.bsu.edu.ru/") && !url.Contains("webinar.bsu-eis.ru/")))
-                return false;
-
-            string[] parts = url.Split('/');
-            url = string.Join("/", parts.Take(parts.Length - 1).ToArray()) + "/";
-            return true;
         }
 
         private static void SavePresentationDialog(Presentation presentation)
