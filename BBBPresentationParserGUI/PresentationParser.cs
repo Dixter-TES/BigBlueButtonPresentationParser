@@ -35,7 +35,6 @@ namespace BBBPresentationParser
             try
             {
                 _browser?.CloseAsync();
-                _browser?.Dispose();
             }
             catch { }
         }

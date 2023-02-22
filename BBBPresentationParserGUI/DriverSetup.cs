@@ -9,7 +9,7 @@ namespace BBBPresentationParser
 {
     internal class DriverSetup
     {
-        public static async Task<IBrowser?> GetSupportedDriver(bool headless)
+        public static async Task<IBrowser> GetSupportedDriver(bool headless)
         {
             using var browserFetcher = new BrowserFetcher();
 

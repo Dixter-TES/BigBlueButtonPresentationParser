@@ -41,17 +41,8 @@ namespace BBBPresentationParser
             }
             catch (Exception ex)
             {
-                driver?.CloseAsync();
-                driver?.Dispose();
-
-                string errorMessage = "Произошла ошибка при проверка совместимости: " + ex.Message;
+                string errorMessage = "Произошла ошибка при получении драйвера: " + ex.Message;
                 DownloadFailed?.Invoke(null, new DownloadResult(false, errorMessage));
-            }
-
-
-            if (driver is null)
-            {
-                DownloadFailed?.Invoke(null, new DownloadResult(false, "Не найдено ни одного поддерживаемого браузера!"));
                 return;
             }
 
@@ -80,7 +71,6 @@ namespace BBBPresentationParser
             finally
             {
                 driver?.CloseAsync();
-                driver?.Dispose();
             }
         }
     }
