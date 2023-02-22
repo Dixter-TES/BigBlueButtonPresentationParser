@@ -9,7 +9,7 @@ namespace BBBPresentationParser
 {
     internal class PresentationParser
     {
-        private IBrowser? _browser;
+        private IBrowser _browser;
         private readonly string _baseUrl;
 
         public EventHandler<string>? SlideParsed;
@@ -42,9 +42,6 @@ namespace BBBPresentationParser
 
         public async Task<string[]?> Parse()
         {
-            if (_browser == null)
-                return null;
-
             var page = await _browser.NewPageAsync();
             var screenshots = new List<string>();
 

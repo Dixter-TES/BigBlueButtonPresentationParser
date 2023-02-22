@@ -83,8 +83,7 @@ namespace BBBPresentationParser
             var im = Image.GetInstance(_slides[0]);
 
             var doc = new Document(new Rectangle(im));
-            string filename = $"Презентация {DateTime.Now:dd.MM.yy HH mm}.pdf";
-            filename = path;
+            string filename = path; // $"Презентация {DateTime.Now:dd.MM.yy HH mm}.pdf"
 
             PdfWriter.GetInstance(doc, new FileStream(filename, FileMode.Create));
             doc.Open();

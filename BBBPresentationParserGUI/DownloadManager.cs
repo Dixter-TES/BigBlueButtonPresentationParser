@@ -49,9 +49,10 @@ namespace BBBPresentationParser
             }
 
 
-            if (driver == null)
+            if (driver is null)
             {
                 DownloadFailed?.Invoke(null, new DownloadResult(false, "Не найдено ни одного поддерживаемого браузера!"));
+                return;
             }
 
             try
