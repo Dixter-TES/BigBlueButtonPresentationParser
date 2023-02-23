@@ -41,7 +41,7 @@ namespace BBBPresentationParser
                 AudioCenter.PlaySound(Properties.Resources.DownloadFailedSound);
                 MessageBox.Show(e.ErrorMessage);
                 token?.Cancel();
-                Thread.Sleep(500);
+                Thread.Sleep(200);
                 ChangeControlState(true);
                 previewImg.ImageSource = defaultImage;
             };
@@ -65,7 +65,7 @@ namespace BBBPresentationParser
                 finally
                 {
                     token?.Cancel();
-                    Thread.Sleep(500);
+                    Thread.Sleep(200);
                     ChangeControlState(true);
                     previewImg.ImageSource = defaultImage;
                 }
@@ -94,7 +94,6 @@ namespace BBBPresentationParser
                 return null;
 
             CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
-            CancellationToken token = cancelTokenSource.Token;
 
             Animation.ButtonTextAnimation(downloadButton, new[]
             {
@@ -102,7 +101,7 @@ namespace BBBPresentationParser
                 "Идёт скачивание.",
                 "Идёт скачивание..",
                 "Идёт скачивание..."
-            }, 500, token);
+            }, 500, cancelTokenSource);
 
             return cancelTokenSource;
         }

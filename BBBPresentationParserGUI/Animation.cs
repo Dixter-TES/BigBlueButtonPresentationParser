@@ -10,23 +10,20 @@ namespace BBBPresentationParser
 {
     internal class Animation
     {
-        public static async void ButtonTextAnimation(Button button, string[] text, int delay, CancellationToken token)
+        public static async void ButtonTextAnimation(Button button, string[] text, int delay, CancellationTokenSource token)
         {
-            await Task.Run(() =>
+            int index = 0;
+            while (!token.IsCancellationRequested)
             {
-                int index = 0;
-                while(!token.IsCancellationRequested)
+                try
                 {
-                    try
-                    {
-                        button.Dispatcher.Invoke(() => button.Content = text[index]);
-                        Task.Delay(delay, token).Wait();
-                        index = index < text.Length - 1 ? index + 1 : 0;
-                    }
-                    catch { }
-                    
+                    button.Dispatcher.Invoke(() => button.Content = text[index]);
+                    await Task.Delay(delay, token.Token);
+                    index = index < text.Length - 1 ? index + 1 : 0;
                 }
-            });
+                catch { }
+
+            }
         }
     }
 }
