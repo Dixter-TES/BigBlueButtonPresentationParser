@@ -1,112 +1,68 @@
-﻿using Microsoft.Win32;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Edge;
-using OpenQA.Selenium.Firefox;
+﻿using PuppeteerSharp;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using WebDriverManager;
-using WebDriverManager.DriverConfigs.Impl;
 
-namespace BBBPresentationParserGUI
+namespace BBBPresentationParser
 {
     internal class PresentationParser
     {
-        private WebDriver? _browser;
+        private IBrowser _browser;
         private readonly string _baseUrl;
 
-        public EventHandler<string>? SlideParsed;
+        private const int MaxSlidesCount = 200;
+        private const string SlidesEndIndicator = "404 Not Found";
 
-        public PresentationParser(string baseUrl, WebDriver driver)
+        public EventHandler<byte[]>? SlideParsed;
+
+        public PresentationParser(string baseUrl, IBrowser driver)
         {
             _baseUrl = baseUrl;
             _browser = driver;
-
-            try
-            {
-                foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory(), "*.jpg"))
-                    File.Delete(file);
-
-                foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory(), "*.pdf"))
-                    File.Delete(file);
-            }
-            catch { }
         }
 
         ~PresentationParser()
         {
-            try
-            {
-                _browser?.Quit();
-                _browser?.Dispose();
-            }
-            catch { }
+            _browser?.CloseAsync();
         }
 
-        public async Task<string[]?> Parse()
+        public async Task<byte[][]?> Parse()
         {
-            return await Task.Run(() =>
+            var page = await _browser.NewPageAsync();
+            var screenshots = new List<byte[]>();
+
+            for (int i = 1; i < MaxSlidesCount; i++)
             {
-                if (_browser == null)
-                    return null;
-
-                _browser.Manage().Window.Size = new System.Drawing.Size(3000, 3000);
-                var scrs = new List<string>();
-
-                int count = 0;
-                for (int i = 1; i < 200; i++)
+                try
                 {
-                    try
-                    {
-                        _browser.Url = $@"{_baseUrl}{i}";
-                        if (_browser.PageSource.Contains("404 Not Found"))
-                            break;
+                    await page.GoToAsync($@"{_baseUrl}{i}");
 
-                        count++;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Произошла ошибка: " + ex.Message);
+                    string content = await page.GetContentAsync();
+                    if (content.Contains(SlidesEndIndicator))
                         break;
-                    }
-                }
 
-                for (int i = 1; i <= count; i++)
+                    var svgElement = await page.QuerySelectorAsync("svg");
+                    var svgElementSize = await svgElement.BoundingBoxAsync();
+
+                    int width = (int)(svgElementSize.Width + svgElementSize.X * 2);
+                    int height = (int)(svgElementSize.Height + svgElementSize.Y);
+
+                    await page.SetViewportAsync(new ViewPortOptions { Width = width + 10, Height = height + 50 });
+
+                    byte[] data = await page.ScreenshotDataAsync();
+                    screenshots.Add(data);
+                    SlideParsed?.Invoke(null, data);
+                }
+                catch (Exception ex)
                 {
-                    try
-                    {
-                        _browser.Url = $@"{_baseUrl}{i}";
-                        if (_browser.PageSource.Contains("404 Not Found"))
-                            break;
-
-                        var slideBody = _browser.FindElement(By.TagName("svg"));
-                        int width = slideBody.Size.Width + slideBody.Location.X * 2;
-                        int height = slideBody.Size.Height + slideBody.Location.Y;
-
-                        _browser.Manage().Window.Size = new System.Drawing.Size(width + 10, height + 50);
-
-                        var scr = _browser.GetScreenshot();
-                        string imgPath = $"{DateTime.Now.Ticks + i}.jpg";
-                        scr.SaveAsFile(imgPath);
-                        scrs.Add(imgPath);
-                        SlideParsed?.Invoke(null, imgPath);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Произошла ошибка: " + ex.Message);
-                        return null;
-                    }
+                    MessageBox.Show("Произошла ошибка: " + ex.Message);
+                    return null;
                 }
+            }
 
-                _browser.Close();
-                return scrs.ToArray();
-            });
+            await _browser.CloseAsync();
+            return screenshots.ToArray();
         }
     }
 }
