@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -74,7 +73,7 @@ namespace BBBPresentationParser
             {
                 previewImg.Dispatcher.Invoke(() =>
                 {
-                    var source = ToImage(e);
+                    var source = BitmapImageUtils.BitmapImageFromData(e);
                     previewImg.ImageSource = source;
                 });
             };
@@ -87,19 +86,6 @@ namespace BBBPresentationParser
         // Исправление багов
         // Увеличение скорости работы
         // Уменьшение веса презентации
-
-        public BitmapImage ToImage(byte[] array)
-        {
-            using (var ms = new MemoryStream(array))
-            {
-                var image = new BitmapImage();
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.StreamSource = ms;
-                image.EndInit();
-                return image;
-            }
-        }
 
         private CancellationTokenSource? ChangeControlState(bool enabled)
         {

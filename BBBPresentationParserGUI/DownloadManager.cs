@@ -1,8 +1,5 @@
 ﻿using PuppeteerSharp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BBBPresentationParser
 {
@@ -53,8 +50,6 @@ namespace BBBPresentationParser
                 PresentationParser parser = new PresentationParser(url, driver);
                 parser.SlideParsed += (sender, args) => SlideDownloaded?.Invoke(sender, args);
                 byte[][]? slides = await parser.Parse();
-
-                await Task.Delay(1000);
 
                 if (slides is null)
                 {
