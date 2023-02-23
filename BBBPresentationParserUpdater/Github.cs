@@ -17,9 +17,15 @@ namespace BBBPresentationParserUpdater
 
         public static async Task<Release?> GetLatestRelease(string owner, string name)
         {
-            var client = new GitHubClient(new ProductHeaderValue(nameof(BBBPresentationParserUpdater)));
-            IReadOnlyList<Release>? releases = await client.Repository.Release.GetAll(owner, name);
+            IReadOnlyList<Release>? releases = await GetAllReleases(owner, name);
             return releases[0];
+        }
+
+        public static async Task<Release[]> GetAllReleases(string owner, string name)
+        {
+            var client = new GitHubClient(new ProductHeaderValue(nameof(BBBPresentationParserUpdater)));
+            IReadOnlyList<Release> releases = await client.Repository.Release.GetAll(owner, name);
+            return releases.ToArray();
         }
 
         [Obsolete]

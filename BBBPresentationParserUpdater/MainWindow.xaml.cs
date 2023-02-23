@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Octokit;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -41,7 +42,21 @@ namespace BBBPresentationParserUpdater
             var eqResult = EqualsTag(rel.TagName);
             if (!eqResult.equals)
             {
-                descTb.Text = ParseDescription(rel.Body);
+                var rels = await Github.GetAllReleases("Dixter-TES", "BigBlueButtonPresentationParser");
+                rels = rels.TakeWhile(x => x.TagName != GetTag()).ToArray();
+                
+                if(rels.Length > 1)
+                {
+                    foreach (Release r in rels)
+                    {
+                        descTb.Text += $"{ParseDescription(r.Body)}==============";
+                    }
+                } 
+                else
+                {
+                    descTb.Text = ParseDescription(rel.Body);
+                }
+                
                 Visibility = Visibility.Visible;
             }
             else
@@ -65,6 +80,19 @@ namespace BBBPresentationParserUpdater
                 return (true, lines[1]);
 
             return (false, null);
+        }
+
+        private string GetTag()
+        {
+            if (!File.Exists("config"))
+                return string.Empty;
+
+            string[] lines = File.ReadAllLines("config");
+
+            if (lines.Length > 0)
+                return lines[0];
+
+            return string.Empty;
         }
 
         public static string? GetStartupExe()
