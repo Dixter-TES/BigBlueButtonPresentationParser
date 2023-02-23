@@ -41,6 +41,7 @@ namespace BBBPresentationParser
                 AudioCenter.PlaySound(Properties.Resources.DownloadFailedSound);
                 MessageBox.Show(e.ErrorMessage);
                 token?.Cancel();
+                Thread.Sleep(500);
                 ChangeControlState(true);
                 previewImg.ImageSource = defaultImage;
             };
@@ -64,6 +65,7 @@ namespace BBBPresentationParser
                 finally
                 {
                     token?.Cancel();
+                    Thread.Sleep(500);
                     ChangeControlState(true);
                     previewImg.ImageSource = defaultImage;
                 }
@@ -80,12 +82,6 @@ namespace BBBPresentationParser
 
             downloadManager.InitializeDownloadAsync(url);
         }
-
-        // Больше не требует установленного браузера и .NET 6
-        // Переработана система парсинга презентации
-        // Исправление багов
-        // Увеличение скорости работы
-        // Уменьшение веса презентации
 
         private CancellationTokenSource? ChangeControlState(bool enabled)
         {
