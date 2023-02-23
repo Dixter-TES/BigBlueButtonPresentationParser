@@ -68,7 +68,7 @@ namespace BBBPresentationParserUpdater
         {
             string[] oldDirs = Directory.GetDirectories(Directory.GetCurrentDirectory());
             ZipFile.ExtractToDirectory(package, Directory.GetCurrentDirectory());
-            string packageFolder = Directory.GetDirectories(Directory.GetCurrentDirectory()).Where(x => !oldDirs.Contains(x)).First();
+            string packageFolder = Directory.GetDirectories(Directory.GetCurrentDirectory()).First(x => !oldDirs.Contains(x));
 
             MoveDirectoryContent(packageFolder, Directory.GetCurrentDirectory());
             Directory.Delete(packageFolder);

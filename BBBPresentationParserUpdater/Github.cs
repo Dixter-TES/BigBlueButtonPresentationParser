@@ -13,7 +13,7 @@ namespace BBBPresentationParserUpdater
 {
     internal class Github
     {
-        public static EventHandler<double> OnDownloadProgressChanged;
+        public static EventHandler<double>? OnDownloadProgressChanged;
 
         public static async Task<Release?> GetLatestRelease(string owner, string name)
         {
