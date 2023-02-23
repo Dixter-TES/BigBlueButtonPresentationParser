@@ -16,4 +16,4 @@
 [Инструкция по получению базовой ссылки](https://www.youtube.com/watch?v=UiqwdudeDQo)
 
 ### Если вы столкнулись с какой-либо проблемой при работе программы прошу сообщить об этом на почту, указанную ниже:
-Email: dixter_d@mail.ru
+Email: dixter_work@mail.ru
