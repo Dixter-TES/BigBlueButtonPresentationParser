@@ -15,43 +15,24 @@ namespace BBBPresentationParser
 
         private const int MaxSlidesCount = 200;
         private const string SlidesEndIndicator = "404 Not Found";
-        private readonly string[] TempFileFormats = new string[]
-        {
-            "*.jpg",
-            "*.pdf"
-        };
 
-        public EventHandler<string>? SlideParsed;
+        public EventHandler<byte[]>? SlideParsed;
 
         public PresentationParser(string baseUrl, IBrowser driver)
         {
             _baseUrl = baseUrl;
             _browser = driver;
-
-            try
-            {
-                foreach(var format in TempFileFormats)
-                {
-                    foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory(), format))
-                        File.Delete(file);
-                }
-            }
-            catch { }
         }
 
         ~PresentationParser()
         {
-            try
-            {
-                _browser?.CloseAsync();
-            }
-            catch { }
+            _browser?.CloseAsync();
         }
 
-        public async Task<string[]?> Parse()
+        public async Task<byte[][]?> Parse()
         {
             var page = await _browser.NewPageAsync();
-            var screenshots = new List<string>();
+            var screenshots = new List<byte[]>();
 
             for (int i = 1; i < MaxSlidesCount; i++)
             {
@@ -71,10 +52,9 @@ namespace BBBPresentationParser
 
                     await page.SetViewportAsync(new ViewPortOptions { Width = width + 10, Height = height + 50 });
 
-                    string imgPath = $"{DateTime.Now.Ticks + i}.jpg";
-                    await page.ScreenshotAsync(imgPath);
-                    screenshots.Add(imgPath);
-                    SlideParsed?.Invoke(null, imgPath);
+                    byte[] data = await page.ScreenshotDataAsync();
+                    screenshots.Add(data);
+                    SlideParsed?.Invoke(null, data);
                 }
                 catch (Exception ex)
                 {

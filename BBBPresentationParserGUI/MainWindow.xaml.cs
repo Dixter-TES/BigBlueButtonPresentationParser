@@ -49,6 +49,7 @@ namespace BBBPresentationParser
             downloadManager.DownloadCompleted += (sender, e) =>
             {
                 AudioCenter.PlaySound(Properties.Resources.DownloadCompletedSound);
+                previewImg.ImageSource = defaultImage;
 
                 try
                 {
@@ -73,7 +74,7 @@ namespace BBBPresentationParser
             {
                 previewImg.Dispatcher.Invoke(() =>
                 {
-                    var source = new BitmapImage(new Uri(Path.Combine(Directory.GetCurrentDirectory(), e)));
+                    var source = ToImage(e);
                     previewImg.ImageSource = source;
                 });
             };
@@ -84,6 +85,19 @@ namespace BBBPresentationParser
         // Больше не требует установленного браузера и .NET 6
         // Переработана система сохранения презентации
         // Исправление багов
+
+        public BitmapImage ToImage(byte[] array)
+        {
+            using (var ms = new MemoryStream(array))
+            {
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = ms;
+                image.EndInit();
+                return image;
+            }
+        }
 
         private CancellationTokenSource? ChangeControlState(bool enabled)
         {

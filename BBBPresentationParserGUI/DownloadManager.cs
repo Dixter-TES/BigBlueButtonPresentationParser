@@ -1,5 +1,7 @@
 ﻿using PuppeteerSharp;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BBBPresentationParser
@@ -29,7 +31,7 @@ namespace BBBPresentationParser
 
         public EventHandler<DownloadResult>? DownloadCompleted;
         public EventHandler<DownloadResult>? DownloadFailed;
-        public EventHandler<string>? SlideDownloaded;
+        public EventHandler<byte[]>? SlideDownloaded;
 
         public async void InitializeDownloadAsync(string url)
         {
@@ -50,7 +52,7 @@ namespace BBBPresentationParser
             {
                 PresentationParser parser = new PresentationParser(url, driver);
                 parser.SlideParsed += (sender, args) => SlideDownloaded?.Invoke(sender, args);
-                string[]? slides = await parser.Parse();
+                byte[][]? slides = await parser.Parse();
 
                 await Task.Delay(1000);
 
@@ -62,6 +64,7 @@ namespace BBBPresentationParser
 
                 Presentation presentation = new Presentation();
                 presentation.AddSlides(slides);
+
                 DownloadCompleted?.Invoke(null, new DownloadResult(true, string.Empty, presentation));
             }
             catch (Exception ex)
