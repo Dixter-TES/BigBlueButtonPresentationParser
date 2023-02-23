@@ -16,14 +16,14 @@ namespace BBBPresentationParser
             bool haveInstalledRevisions = browserFetcher.LocalRevisions().Any();
             if(!haveInstalledRevisions)
             {
-                MessageBox.Show("Производится первоначальная настройка программы.\nЭто может занять несколько минут.");
+                MessageBox.Show("Производится первоначальная настройка программы.\nЭто может занять пару минут.\n\nОжидайте...");
             }
 
             await browserFetcher.DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
 
             return await Puppeteer.LaunchAsync(new LaunchOptions
             {
-                Headless = true
+                Headless = headless
             });
 
         }
