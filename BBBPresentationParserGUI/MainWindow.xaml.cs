@@ -1,14 +1,12 @@
-﻿using System;
-using System.IO;
+﻿using BBBPresentationParser.Extensions;
+using BBBPresentationParser.Utils;
+using Microsoft.Win32;
+using System;
+using System.Reflection;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using Microsoft.Win32;
-using System.Reflection;
-using System.Threading;
-using BBBPresentationParser.Utils;
-using BBBPresentationParser.Extensions;
 
 namespace BBBPresentationParser
 {

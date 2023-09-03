@@ -1,12 +1,9 @@
 ﻿using Octokit;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BBBPresentationParserUpdater
@@ -43,7 +40,7 @@ namespace BBBPresentationParserUpdater
                 OnDownloadProgressChanged?.Invoke(null, e.ProgressPercentage / 100d);
             };
             await client.DownloadFileTaskAsync(new Uri(release.Assets[0].BrowserDownloadUrl), downloadPath);
-            
+
             return downloadPath;
         }
     }

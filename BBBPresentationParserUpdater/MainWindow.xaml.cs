@@ -1,22 +1,8 @@
 ﻿using Octokit;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BBBPresentationParserUpdater
 {
@@ -44,24 +30,24 @@ namespace BBBPresentationParserUpdater
             {
                 var rels = await Github.GetAllReleases("Dixter-TES", "BigBlueButtonPresentationParser");
                 rels = rels.TakeWhile(x => x.TagName != GetTag()).ToArray();
-                
-                if(rels.Length > 1)
+
+                if (rels.Length > 1)
                 {
                     foreach (Release r in rels)
                     {
                         descTb.Text += $"{ParseDescription(r.Body)}==============";
                     }
-                } 
+                }
                 else
                 {
                     descTb.Text = ParseDescription(rel.Body);
                 }
-                
+
                 Visibility = Visibility.Visible;
             }
             else
             {
-                if(eqResult.startupExe is not null)
+                if (eqResult.startupExe is not null)
                     Process.Start(eqResult.startupExe);
 
                 Close();
@@ -76,7 +62,7 @@ namespace BBBPresentationParserUpdater
 
             string[] lines = File.ReadAllLines("config");
 
-            if(lines.Length > 1 && lines[0] == tag)
+            if (lines.Length > 1 && lines[0] == tag)
                 return (true, lines[1]);
 
             return (false, null);
