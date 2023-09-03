@@ -1,15 +1,15 @@
 ﻿using System.Linq;
 
 
-namespace BBBPresentationParser
+namespace BBBPresentationParser.Utils
 {
-    internal class ValidatorUtility
+    internal static class ValidatorUtility
     {
         public static bool ValidatePresentationUrl(ref string url)
         {
             if (string.IsNullOrEmpty(url) ||
                 !url.StartsWith("https://") ||
-                (!url.Contains("bsu.edu.ru/") && !url.Contains("bsu-eis.ru/")))
+                !url.Contains("bsu.edu.ru/") && !url.Contains("bsu-eis.ru/"))
                 return false;
 
             string[] parts = url.Split('/');

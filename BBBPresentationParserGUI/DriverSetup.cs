@@ -11,14 +11,15 @@ namespace BBBPresentationParser
         public static async Task<IBrowser> GetSupportedDriver(bool headless)
         {
             using var browserFetcher = new BrowserFetcher();
-
-            bool haveInstalledRevisions = browserFetcher.LocalRevisions().Any();
-            if(!haveInstalledRevisions)
+            browserFetcher.DownloadProgressChanged += (s, e) =>
             {
-                MessageBox.Show("Производится первоначальная настройка программы.\nЭто может занять пару минут.\n\nОжидайте...");
-            }
+                if (e.ProgressPercentage == 1)
+                {
+                    MessageBox.Show("Производится первоначальная настройка программы.\nЭто может занять некоторое время.\n\nОжидайте...");
+                }
+            };
 
-            await browserFetcher.DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
+            await browserFetcher.DownloadAsync();
 
             return await Puppeteer.LaunchAsync(new LaunchOptions
             {

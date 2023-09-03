@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Windows.Media.Imaging;
 
-namespace BBBPresentationParser
+namespace BBBPresentationParser.Extensions
 {
     public static class BitmapImageUtils
     {

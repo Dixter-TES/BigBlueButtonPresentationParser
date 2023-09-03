@@ -7,6 +7,8 @@ using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using System.Reflection;
 using System.Threading;
+using BBBPresentationParser.Utils;
+using BBBPresentationParser.Extensions;
 
 namespace BBBPresentationParser
 {
@@ -40,8 +42,11 @@ namespace BBBPresentationParser
             {
                 AudioCenter.PlaySound(Properties.Resources.DownloadFailedSound);
                 MessageBox.Show(e.ErrorMessage);
+
                 token?.Cancel();
+
                 Thread.Sleep(200);
+
                 ChangeControlState(true);
                 previewImg.ImageSource = defaultImage;
             };

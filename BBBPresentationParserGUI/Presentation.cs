@@ -17,7 +17,7 @@ namespace BBBPresentationParser
 
         public string? SavePdf(string path)
         {
-            if (_slides == null)
+            if (_slides.Count == 0)
                 return null;
 
             var im = Image.GetInstance(_slides[0]);
