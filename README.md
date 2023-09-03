@@ -1,5 +1,6 @@
 # Парсер презентаций BigBlueButton
 ![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/v/tag/Dixter-TES/BigBlueButtonPresentationParser?include_prereleases)
+[![CodeFactor](https://www.codefactor.io/repository/github/dixter-tes/bigbluebuttonpresentationparser/badge/master)](https://www.codefactor.io/repository/github/dixter-tes/bigbluebuttonpresentationparser/overview/master)
 
 Парсер презентаций BigBlueButton позволяет вам получить готовую презентацию из конференции в BigBlueButton всего в пару кликов.
 Для того чтобы получить .pdf файл с презентацией вам необходимо выполнить всего 3 шага:
