@@ -22,23 +22,25 @@ namespace BBBPresentationParser
 
             var im = Image.GetInstance(_slides[0]);
 
-            var doc = new Document(new Rectangle(im));
-            string filename = path; // $"Презентация {DateTime.Now:dd.MM.yy HH mm}.pdf"
+            using var doc = new Document(new Rectangle(im));
 
-            PdfWriter.GetInstance(doc, new FileStream(filename, FileMode.Create));
+            PdfWriter.GetInstance(doc, new FileStream(path, FileMode.Create));
             doc.Open();
 
             foreach (byte[] data in _slides)
             {
                 Image i = Image.GetInstance(data);
                 doc.SetPageSize(new Rectangle(i));
+                
                 i.Alignment = Element.ALIGN_CENTER;
                 i.ScaleToFit(doc.PageSize.Width, doc.PageSize.Height);
+                
                 doc.Add(i);
+
                 doc.NewPage();
             }
-            doc.Close();
-            return filename;
+
+            return path;
         }
     }
 }

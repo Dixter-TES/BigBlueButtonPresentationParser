@@ -5,7 +5,7 @@ namespace BBBPresentationParser.Extensions
 {
     public static class BitmapImageUtils
     {
-        public static BitmapImage BitmapImageFromData(byte[] data)
+        public static BitmapImage BitmapImageFromBytes(byte[] data)
         {
             using (var ms = new MemoryStream(data))
             {

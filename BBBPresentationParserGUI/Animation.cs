@@ -18,7 +18,6 @@ namespace BBBPresentationParser
                     index = index < text.Length - 1 ? index + 1 : 0;
                 }
                 catch { }
-
             }
         }
     }

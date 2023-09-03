@@ -34,7 +34,7 @@ namespace BBBPresentationParser
             var token = ChangeControlState(false);
             ImageSource defaultImage = previewImg.ImageSource;
 
-            DownloadManager downloadManager = new DownloadManager();
+            PresentationDownloader downloadManager = new PresentationDownloader();
 
             downloadManager.DownloadFailed += (sender, e) =>
             {
@@ -78,12 +78,12 @@ namespace BBBPresentationParser
             {
                 previewImg.Dispatcher.Invoke(() =>
                 {
-                    var source = BitmapImageUtils.BitmapImageFromData(e);
+                    var source = BitmapImageUtils.BitmapImageFromBytes(e);
                     previewImg.ImageSource = source;
                 });
             };
 
-            downloadManager.InitializeDownloadAsync(url);
+            downloadManager.DownloadAsync(url);
         }
 
         private CancellationTokenSource? ChangeControlState(bool enabled)
