@@ -14,6 +14,7 @@
     <None Remove="Resources\closeButton.png" />
     <None Remove="Resources\darkBlank.png" />
     <None Remove="Resources\DownloadCompletedSound.wav" />
+    <None Remove="Resources\DownloadFailedSound.wav" />
     <None Remove="Resources\icon.ico" />
   </ItemGroup>
 
@@ -31,6 +32,9 @@
     <Resource Include="Resources\DownloadCompletedSound.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\DownloadFailedSound.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -38,6 +42,7 @@
 
   <ItemGroup>
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="Material.Icons.WPF" Version="2.0.0" />
     <PackageReference Include="PuppeteerSharp" Version="11.0.4" />
   </ItemGroup>
 

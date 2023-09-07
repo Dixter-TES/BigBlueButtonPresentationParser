@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BBBPresentationParser"
+        xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
         mc:Ignorable="d"
-        Title="BBBParser" Height="370" Width="700" Background="#313340" AllowsTransparency="True" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="BBBParser" Height="502" Width="814" Background="Transparent"
+        AllowsTransparency="True" ResizeMode="NoResize" WindowStyle="None">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,37 +16,117 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
-        <Image x:Name="closeButton" Cursor="Hand" Source="Resources/closeButton.png" Width="35" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 10 10 0" Stretch="Fill" MouseUp="CloseButton_MouseUp"/>
-        <Label x:Name="titleLb" VerticalAlignment="Top" Style="{StaticResource TitleStyle}" HorizontalAlignment="Center" Content="Парсер презентаций BigBlueButton" MouseDown="TitleLb_MouseDown"></Label>
-        <StackPanel HorizontalAlignment="Left" Width="300" Margin="20 30 0 0">
-            <Label Content="Настройки" Style="{StaticResource ContentTitleStyle}"/>
-            <Border Style="{StaticResource ContentBoxBorderStyle}" HorizontalAlignment="Left" Width="258" Height="218">
-                <StackPanel Style="{StaticResource ContentBoxStyle}">
-                    <Label Content="Ссылка" Style="{StaticResource InputTitleStyle}" Margin="4 0 0 0"/>
-                    <Border Style="{StaticResource DataBoxBorderStyle}" HorizontalAlignment="Center" Width="236" Height="175">
-                        <TextBox x:Name="urlInputTb" Style="{StaticResource InputBoxStyle}" TextWrapping="Wrap">
-                        </TextBox>
-                    </Border>
+    <Border Style="{StaticResource WindowBorder}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="43"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Style="{StaticResource BodyBorder}" Grid.Row="1"/>
+            <Border Style="{StaticResource HeaderStyle}">
+                <Grid>
+                    <materialIcons:MaterialIcon x:Name="closeButton"
+                                                Kind="Close"
+                                                Width="36"
+                                                Height="36"
+                                                Foreground="{StaticResource TextColor}"
+                                                HorizontalAlignment="Right"
+                                                Margin="0 0 6 0"
+                                                MouseUp="CloseButton_MouseUp"/>
+                    <TextBlock x:Name="titleLb"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource TitleStyle}"
+                               HorizontalAlignment="Center"
+                               Text="Парсер презентаций BigBlueButton"
+                               MouseDown="TitleLb_MouseDown"/>
+                </Grid>
+            </Border>
+            <Grid Grid.Row="1" Margin="18 14">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel>
+                    <TextBlock Text="Ссылка на презентацию" Style="{StaticResource ContentTitleStyle}" Margin="0 0 0 5"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Border  x:Name="urlInputBorder" Style="{StaticResource DataBoxBorderStyle}" Height="36">
+                            <TextBox x:Name="urlInputTb"
+                                         Style="{StaticResource InputBoxStyle}" Margin="5" VerticalAlignment="Center">
+                            </TextBox>
+                        </Border>
+                        <Border Grid.Column="1" x:Name="downloadButton" Margin="5 0" Style="{StaticResource MainButtonStyle}"
+                                Height="36" Width="36" MouseDown="DownloadButton_Click"
+                                ToolTip="Скачать">
+                            <materialIcons:MaterialIcon Kind="Download"
+                                                        Width="24"
+                                                        Height="24"
+                                                        Foreground="{StaticResource TextColor}"/>
+                        </Border>
+                        <Border Grid.Column="2" Style="{StaticResource MainButtonStyle}" Height="36" Width="36" ToolTip="Предпросмотр">
+                            <materialIcons:MaterialIcon Kind="VisibilityOutline"
+                                                        Width="24"
+                                                        Height="24"
+                                                        Foreground="{StaticResource TextColor}"/>
+                        </Border>
+                    </Grid>
                 </StackPanel>
-            </Border>
+                <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0 15 0 0">
+                    <TextBlock Text="Предпросмотр"
+                           HorizontalAlignment="Left"
+                           Style="{StaticResource ContentTitleStyle}" Margin="0 0 0 5"/>
+                    <Border Style="{StaticResource DataBoxBorderStyle}"
+                                HorizontalAlignment="Stretch" Width="483"
+                                Height="272">
+                        <Border.Background>
+                            <ImageBrush x:Name="previewImg" ImageSource="/Resources/darkBlank.png" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill"/>
+                        </Border.Background>
+                    </Border>
+                    <UniformGrid Columns="3" Margin="0 14 0 0">
+                        <Border Style="{StaticResource MainButtonStyle}"
+                                Height="36" Width="93" HorizontalAlignment="Left">
+                            <materialIcons:MaterialIcon Kind="ChevronLeft"
+                                                        Width="36"
+                                                        Height="36"
+                                                        Foreground="{StaticResource TextColor}"/>
+                        </Border>
+                        <Border Style="{StaticResource MainButtonStyle}"
+                                Height="36" Width="93">
+                            <materialIcons:MaterialIcon Kind="Fullscreen"
+                                                        Width="36"
+                                                        Height="36"
+                                                        Foreground="{StaticResource TextColor}"/>
+                        </Border>
+                        <Border Style="{StaticResource MainButtonStyle}"
+                                Height="36" Width="93" HorizontalAlignment="Right">
+                            <materialIcons:MaterialIcon Kind="ChevronRight"
+                                                        Width="36"
+                                                        Height="36"
+                                                        Foreground="{StaticResource TextColor}"/>
+                        </Border>
+                    </UniformGrid>
+                </StackPanel>
 
-            <Border Style="{StaticResource ContentBoxBorderStyle}" HorizontalAlignment="Left" Margin=" 0 19 0 0" Width="258" Height="37" Cursor="Hand">
-                <Button x:Name="downloadButton" Content="Скачать" VerticalAlignment="Center" Click="DownloadButton_Click">
-                </Button>
-            </Border>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Right" Width="400" Margin="0 30 20 0">
-            <Label Content="Предпросмотр" Width="150" HorizontalAlignment="Left" Margin="14 0 0 0" Style="{StaticResource ContentTitleStyle}"/>
-            <Border Style="{StaticResource ContentBoxBorderStyle}" HorizontalAlignment="Right" Width="381" Height="274">
-                <Border Style="{StaticResource DataBoxBorderStyle}" HorizontalAlignment="Center" Width="359" Height="252">
-                    <Border.Background>
-                        <ImageBrush x:Name="previewImg" ImageSource="/Resources/darkBlank.png"/>
-                    </Border.Background>
-                </Border>
-            </Border>
-        </StackPanel>
-        <Label Name="versionLb" Style="{StaticResource TitleStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 20 0" Content="Версия "></Label>
-    </Grid>
+                <StackPanel Grid.Row="1" HorizontalAlignment="Right" Width="280" Margin="0 15 0 0" VerticalAlignment="Top" Height="298">
+                    <TextBlock Text="Последние загрузки"
+                           HorizontalAlignment="Left"
+                           Style="{StaticResource ContentTitleStyle}" Margin="0 0 0 5"/>
+
+                </StackPanel>
+            </Grid>
+
+            <TextBlock Grid.Row="1"
+                       Margin="0 0 18 9"
+                       Name="versionLb"
+                       Style="{StaticResource VersionStyle}"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Bottom"
+                       Text="Версия "/>
+        </Grid>
+    </Border>
 </Window>
     

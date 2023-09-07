@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF">
 
     <!--<SolidColorBrush x:Key="BackgroundColor" Color="#ffffff"/>
     <SolidColorBrush x:Key="ContentBoxColor" Color="#ededed"/>
@@ -10,16 +11,19 @@
     <SolidColorBrush x:Key="BackgroundColor" Color="#313340"/>
     <SolidColorBrush x:Key="ContentBoxColor" Color="#3F4252"/>
     <SolidColorBrush x:Key="DataColor" Color="#53566A"/>
-    <SolidColorBrush x:Key="MainTextColor" Color="#DFDFDF"/>
-    <SolidColorBrush x:Key="SecondaryTextColor" Color="#8E8E8E"/>
+    <SolidColorBrush x:Key="TextColor" Color="#E3E3E3"/>
+    <SolidColorBrush x:Key="AccentColor" Color="#4A47CB"/>
 
     <ImageBrush x:Key="BlankPreviewImage" ImageSource="/Resources/darkBlank.png"/>
 
-    <Style TargetType="Border">
+    <Style TargetType="{x:Type Window}">
+        <Setter Property="FontFamily" Value="Segoe UI" />
+    </Style>
+
+    <Style x:Key="WindowBorder" TargetType="Border">
         <Setter Property="CornerRadius" Value="14"/>
-        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Padding" Value="0"/>
     </Style>
 
     <Style x:Key="ContentBoxBorderStyle" TargetType="Border">
@@ -30,10 +34,18 @@
     </Style>
 
     <Style x:Key="DataBoxBorderStyle" TargetType="Border">
-        <Setter Property="CornerRadius" Value="7"/>
-        <Setter Property="BorderThickness" Value="3"/>
-        <Setter Property="BorderBrush" Value="{StaticResource DataColor}"/>
+        <Setter Property="CornerRadius" Value="5"/>
         <Setter Property="Background" Value="{StaticResource DataColor}"/>
+    </Style>
+
+    <Style x:Key="MainButtonStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Background" Value="{StaticResource DataColor}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource AccentColor}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="DataBoxStyle" TargetType="Image">
@@ -42,31 +54,27 @@
     <Style x:Key="InputBoxStyle" TargetType="TextBox">
         <Setter Property="Background" Value="{StaticResource DataColor}"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Foreground" Value="{StaticResource MainTextColor}"/>
-        <Setter Property="FontFamily" Value="OpenSans" />
-        <Setter Property="FontSize" Value="13" />
-        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="FontSize" Value="16" />
     </Style>
 
     <Style x:Key="ContentBoxStyle" TargetType="StackPanel">
         <Setter Property="Background" Value="{StaticResource ContentBoxColor}"/>
     </Style>
 
-    <Style x:Key="ContentTitleStyle" TargetType="Label">
-        <Setter Property="Foreground" Value="{StaticResource MainTextColor}"/>
-        <Setter Property="Label.FontFamily" Value="OpenSans" />
+    <Style x:Key="ContentTitleStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="Control.FontSize" Value="18" />
     </Style>
 
     <Style x:Key="InputTitleStyle" TargetType="Label">
-        <Setter Property="Foreground" Value="{StaticResource MainTextColor}"/>
-        <Setter Property="Control.FontFamily" Value="OpenSans" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="Control.FontSize" Value="14" />
     </Style>
 
+
     <Style TargetType="Button">
-        <Setter Property="Foreground" Value="{StaticResource MainTextColor}"/>
-        <Setter Property="FontFamily" Value="OpenSans" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="FontSize" Value="18" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Background" Value="{StaticResource ContentBoxColor}"/>
@@ -83,10 +91,27 @@
         </Setter>
     </Style>
 
-    <Style x:Key="TitleStyle" TargetType="Label">
-        <Setter Property="Foreground" Value="{StaticResource SecondaryTextColor}"/>
-        <Setter Property="Control.FontFamily" Value="OpenSans"/>
-        <Setter Property="Control.FontWeight" Value="SemiBold" />
-        <Setter Property="Control.FontSize" Value="18" />
+    <Style x:Key="TitleStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+
+    <Style x:Key="VersionStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Opacity" Value="0.5"/>
+    </Style>
+
+    <Style x:Key="HeaderStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource AccentColor}"/>
+        <Setter Property="CornerRadius" Value="15 15 0 0"/>
+        <!--<Setter Property="FontFamily" Value="OpenSans"/>-->
+    </Style>
+
+    <Style x:Key="BodyBorder" TargetType="Border">
+        <Setter Property="CornerRadius" Value="0 0 14 14"/>
+        <Setter Property="BorderThickness" Value="1 0 1 1"/>
+        <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DataColor}"/>
     </Style>
 </ResourceDictionary>

@@ -4,7 +4,9 @@ using Microsoft.Win32;
 using System;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -18,19 +20,26 @@ namespace BBBPresentationParser
         public MainWindow()
         {
             InitializeComponent();
-            versionLb.Content += Assembly.GetExecutingAssembly()?.GetName()?.Version?.ToString(3) ?? "0.0.0";
+            versionLb.Text += Assembly.GetExecutingAssembly()?.GetName()?.Version?.ToString(3) ?? "0.0.0";
         }
 
         private void TitleLb_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
 
         private void CloseButton_MouseUp(object sender, MouseButtonEventArgs e) => Close();
 
-        private void DownloadButton_Click(object sender, RoutedEventArgs e)
+        private async void DownloadButton_Click(object sender, RoutedEventArgs e)
         {
             string url = urlInputTb.Text;
             if (!ValidatorUtility.ValidatePresentationUrl(ref url))
+            {
+                ToolTip tooltip = new ToolTip { Content = "Введите ссылку на презентацию" };
+                urlInputBorder.ToolTip = tooltip;
+                tooltip.IsOpen = true;
+                await Task.Delay(1500);
+                tooltip.IsOpen = false;
                 return;
-
+            }
+                
             var token = ChangeControlState(false);
             ImageSource defaultImage = previewImg.ImageSource;
 
@@ -39,7 +48,7 @@ namespace BBBPresentationParser
             downloadManager.DownloadFailed += (sender, e) =>
             {
                 AudioCenter.PlaySound(Properties.Resources.DownloadFailedSound);
-                MessageBox.Show(e.ErrorMessage);
+                UIUtility.ShowMessage($"{e.ErrorMessage}\n\nВозможно вы ввели некорректную ссылку.");
 
                 token?.Cancel();
 
@@ -88,7 +97,6 @@ namespace BBBPresentationParser
 
         private CancellationTokenSource? ChangeControlState(bool enabled)
         {
-            downloadButton.Content = enabled ? "Скачать" : "Идёт скачивание...";
             downloadButton.IsEnabled = enabled;
             urlInputTb.IsEnabled = enabled;
             closeButton.IsEnabled = enabled;
@@ -97,14 +105,6 @@ namespace BBBPresentationParser
                 return null;
 
             CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
-
-            Animation.ButtonTextAnimation(downloadButton, new[]
-            {
-                "Идёт скачивание",
-                "Идёт скачивание.",
-                "Идёт скачивание..",
-                "Идёт скачивание..."
-            }, 500, cancelTokenSource);
 
             return cancelTokenSource;
         }

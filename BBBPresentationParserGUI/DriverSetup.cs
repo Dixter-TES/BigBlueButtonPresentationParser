@@ -1,4 +1,5 @@
-﻿using PuppeteerSharp;
+﻿using BBBPresentationParser.Utils;
+using PuppeteerSharp;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -13,7 +14,7 @@ namespace BBBPresentationParser
             {
                 if (e.ProgressPercentage == 1)
                 {
-                    MessageBox.Show("Производится первоначальная настройка программы.\nЭто может занять некоторое время.\n\nОжидайте...");
+                    UIUtility.ShowMessage("Производится первоначальная настройка программы.\nЭто может занять некоторое время.\n\nОжидайте...");
                 }
             };
 

@@ -1,15 +1,18 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Media;
+using System.Windows;
+using System.Windows.Media;
 
 namespace BBBPresentationParser
 {
-    internal class AudioCenter
+    internal static class AudioCenter
     {
-        public static void PlaySound(Stream soundStream)
+        public static void PlaySound(Stream source)
         {
-            SoundPlayer player = new SoundPlayer(soundStream);
+            using SoundPlayer player = new SoundPlayer(source);
+            player.Load();
             player.Play();
-            player.Dispose();
         }
     }
 }

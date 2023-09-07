@@ -1,4 +1,5 @@
-﻿using PuppeteerSharp;
+﻿using BBBPresentationParser.Utils;
+using PuppeteerSharp;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -34,31 +35,23 @@ namespace BBBPresentationParser
 
             for (int i = 1; i < MaxSlidesCount; i++)
             {
-                try
-                {
-                    await page.GoToAsync($@"{_baseUrl}{i}");
+                await page.GoToAsync($@"{_baseUrl}{i}");
 
-                    string content = await page.GetContentAsync();
-                    if (content.Contains(SlidesEndIndicator))
-                        break;
+                string content = await page.GetContentAsync();
+                if (content.Contains(SlidesEndIndicator))
+                    break;
 
-                    var svgElement = await page.QuerySelectorAsync("svg");
-                    var svgElementSize = await svgElement.BoundingBoxAsync();
+                var svgElement = await page.QuerySelectorAsync("svg");
+                var svgElementSize = await svgElement.BoundingBoxAsync();
 
-                    int width = (int)(svgElementSize.Width + svgElementSize.X * 2);
-                    int height = (int)(svgElementSize.Height + svgElementSize.Y);
+                int width = (int)(svgElementSize.Width + svgElementSize.X * 2);
+                int height = (int)(svgElementSize.Height + svgElementSize.Y);
 
-                    await page.SetViewportAsync(new ViewPortOptions { Width = width + 10, Height = height + 50 });
+                await page.SetViewportAsync(new ViewPortOptions { Width = width + 10, Height = height + 50 });
 
-                    byte[] data = await page.ScreenshotDataAsync();
-                    screenshots.Add(data);
-                    SlideParsed?.Invoke(null, data);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Произошла ошибка: " + ex.Message);
-                    return null;
-                }
+                byte[] data = await page.ScreenshotDataAsync();
+                screenshots.Add(data);
+                SlideParsed?.Invoke(null, data);
             }
 
             await _browser.CloseAsync();
