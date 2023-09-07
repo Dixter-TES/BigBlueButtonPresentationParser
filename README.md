@@ -10,7 +10,7 @@
 
 Не работает с демонстрацией экрана!
 
-Для правильной работы программы необходимо установить [.NET 7](https://dotnet.microsoft.com/en-us/download)
+Для правильной работы программы необходимо установить [.NET 7](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-7.0.400-windows-x64-installer)
 
 Поддерживаемые версии Windows: 7, 10, 11
 
