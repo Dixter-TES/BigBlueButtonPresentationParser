@@ -31,10 +31,10 @@ namespace BBBPresentationParser
             {
                 Image i = Image.GetInstance(data);
                 doc.SetPageSize(new Rectangle(i));
-                
+
                 i.Alignment = Element.ALIGN_CENTER;
                 i.ScaleToFit(doc.PageSize.Width, doc.PageSize.Height);
-                
+
                 doc.Add(i);
 
                 doc.NewPage();

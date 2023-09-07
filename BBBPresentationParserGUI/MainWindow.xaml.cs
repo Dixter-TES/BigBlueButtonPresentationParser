@@ -39,7 +39,7 @@ namespace BBBPresentationParser
                 tooltip.IsOpen = false;
                 return;
             }
-                
+
             var token = ChangeControlState(false);
             ImageSource defaultImage = previewImg.ImageSource;
 

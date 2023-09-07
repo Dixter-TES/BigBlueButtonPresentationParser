@@ -1,7 +1,6 @@
 ﻿using BBBPresentationParser.Utils;
 using PuppeteerSharp;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace BBBPresentationParser
 {
