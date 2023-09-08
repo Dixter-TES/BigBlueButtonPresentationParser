@@ -1,6 +1,7 @@
 ﻿using BBBPresentationParser.Extensions;
 using BBBPresentationParser.PresentationUtils;
 using BBBPresentationParser.Utils;
+using BBBPresentationParser.Windows;
 using Microsoft.Win32;
 using System;
 using System.Reflection;
@@ -27,6 +28,23 @@ namespace BBBPresentationParser
         private void TitleLb_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
 
         private void CloseButton_MouseUp(object sender, MouseButtonEventArgs e) => Close();
+
+        private async void PreviewButton_Click(object sender, RoutedEventArgs e)
+        {
+            string url = urlInputTb.Text;
+            if (!ValidatorUtility.ValidatePresentationUrl(ref url))
+            {
+                ToolTip tooltip = new ToolTip { Content = "Введите ссылку на презентацию" };
+                urlInputBorder.ToolTip = tooltip;
+                tooltip.IsOpen = true;
+                await Task.Delay(1500);
+                tooltip.IsOpen = false;
+                return;
+            }
+
+            PresentationWindow window = new PresentationWindow(url);
+            window.ShowDialog();
+        }
 
         private async void DownloadButton_Click(object sender, RoutedEventArgs e)
         {

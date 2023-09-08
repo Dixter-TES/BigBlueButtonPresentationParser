@@ -1,4 +1,5 @@
-﻿using PuppeteerSharp;
+﻿using BBBPresentationParser.Utils;
+using PuppeteerSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BBBPresentationParser.PresentationUtils
 {
-    internal class PresentationViewer
+    internal class PresentationViewer : IDisposable
     {
         private IBrowser _browser;
         private readonly string _baseUrl;
@@ -29,7 +30,7 @@ namespace BBBPresentationParser.PresentationUtils
             _browser?.CloseAsync();
         }
 
-        public async Task<byte[]?> ParseSlideAsync(uint slideId)
+        public async Task<byte[]?> ParseSlideAsync(int slideId)
         {
             if (slideId >= _slidesCount && _slidesCount != -1)
                 return null;
@@ -37,11 +38,11 @@ namespace BBBPresentationParser.PresentationUtils
             var page = await _browser.NewPageAsync();
 
             await page.GoToAsync($@"{_baseUrl}{slideId}");
-
+            
             string content = await page.GetContentAsync();
             if (content.Contains(SlidesEndIndicator))
             {
-                _slidesCount = (int)slideId;
+                _slidesCount = slideId;
                 return null;
             }
 
@@ -57,6 +58,11 @@ namespace BBBPresentationParser.PresentationUtils
             SlideParsed?.Invoke(null, screenshot);
 
             return screenshot;
+        }
+
+        public void Dispose()
+        {
+            _browser?.Dispose();
         }
     }
 }

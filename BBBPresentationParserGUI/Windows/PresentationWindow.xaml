@@ -1,0 +1,70 @@
+﻿<Window x:Class="BBBPresentationParser.Windows.PresentationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BBBPresentationParser.Windows" xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+        mc:Ignorable="d"
+        Title="PresentationWindow" Height="600" Width="800" MinWidth="500" MinHeight="500" MaxWidth="1800" MaxHeight="1000" SizeToContent="WidthAndHeight" Background="Transparent"
+        AllowsTransparency="True" WindowStyle="None" ResizeMode="CanResize" Closing="Window_Closing">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                   Source="/DarkThemeTemplate.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Border Style="{StaticResource WindowBorder}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="43"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Border Style="{StaticResource BodyBorder}" Grid.Row="1" Grid.RowSpan="2"/>
+            <Border Style="{StaticResource HeaderStyle}">
+                <Grid>
+                    <materialIcons:MaterialIcon x:Name="closeButton"
+                                                Kind="Close"
+                                                Width="36"
+                                                Height="36"
+                                                Foreground="{StaticResource TextColor}"
+                                                HorizontalAlignment="Right"
+                                                Margin="0 0 6 0"
+                                                MouseUp="CloseButton_MouseUp"/>
+                    <TextBlock x:Name="titleLb"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource TitleStyle}"
+                               HorizontalAlignment="Center"
+                               Text="Презентация"
+                               MouseDown="TitleLb_MouseDown"/>
+                </Grid>
+            </Border>
+
+            <Image x:Name="slideImg" Grid.Row="1" Grid.RowSpan="2" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <!--<Border Grid.Row="1" Grid.RowSpan="2" Width="Auto" Height="Auto" CornerRadius="0 0 15 15">
+                <Border.Background>
+                    <ImageBrush x:Name="slideImg" RenderOptions.BitmapScalingMode="HighQuality" Stretch="Fill"/>
+                </Border.Background>
+            </Border>-->
+            
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="18" HorizontalAlignment="Right">
+                <Border Style="{StaticResource MainButtonStyle}"
+                                Height="36" Width="59" MouseDown="PreviousSlide_MouseDown" Opacity="0.8">
+                    <materialIcons:MaterialIcon Kind="ChevronLeft"
+                                                        Width="36"
+                                                        Height="36"
+                                                        Foreground="{StaticResource TextColor}"/>
+                </Border>
+                <Border Style="{StaticResource MainButtonStyle}"
+                                Height="36" Width="59" Margin="18 0 0 0" MouseDown="NextSlide_MouseDown" Opacity="0.8">
+                    <materialIcons:MaterialIcon Kind="ChevronRight"
+                                                        Width="36"
+                                                        Height="36"
+                                                        Foreground="{StaticResource TextColor}"/>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

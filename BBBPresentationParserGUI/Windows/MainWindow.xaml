@@ -67,7 +67,7 @@
                                                         Height="24"
                                                         Foreground="{StaticResource TextColor}"/>
                         </Border>
-                        <Border Grid.Column="2" Style="{StaticResource MainButtonStyle}" Height="36" Width="36" ToolTip="Предпросмотр">
+                        <Border Grid.Column="2" Style="{StaticResource MainButtonStyle}" Height="36" Width="36" ToolTip="Предпросмотр" MouseDown="PreviewButton_Click"> 
                             <materialIcons:MaterialIcon Kind="VisibilityOutline"
                                                         Width="24"
                                                         Height="24"
