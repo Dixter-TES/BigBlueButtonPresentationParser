@@ -59,7 +59,7 @@
                                          Style="{StaticResource InputBoxStyle}" Margin="5" VerticalAlignment="Center">
                             </TextBox>
                         </Border>
-                        <Border Grid.Column="1" x:Name="downloadButton" Margin="5 0" Style="{StaticResource MainButtonStyle}"
+                        <Border Grid.Column="1" x:Name="downloadButton" Margin="5 0" Style="{StaticResource DownLoadButtonAnimationStyle}"
                                 Height="36" Width="36" MouseDown="DownloadButton_Click"
                                 ToolTip="Скачать">
                             <materialIcons:MaterialIcon Kind="Download"
