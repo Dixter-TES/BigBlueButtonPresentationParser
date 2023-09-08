@@ -41,7 +41,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="Material.Icons.WPF" Version="2.0.0" />
     <PackageReference Include="PuppeteerSharp" Version="11.0.5" />

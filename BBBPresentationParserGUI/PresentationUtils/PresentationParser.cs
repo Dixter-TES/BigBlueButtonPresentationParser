@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BBBPresentationParser
+namespace BBBPresentationParser.PresentationUtils
 {
     internal class PresentationParser
     {
@@ -26,7 +26,7 @@ namespace BBBPresentationParser
             _browser?.CloseAsync();
         }
 
-        public async Task<byte[][]?> Parse()
+        public async Task<byte[][]?> ParseAsync()
         {
             var page = await _browser.NewPageAsync();
             var screenshots = new List<byte[]>();

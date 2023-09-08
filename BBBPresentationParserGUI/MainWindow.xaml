@@ -111,12 +111,35 @@
                     </UniformGrid>
                 </StackPanel>
 
-                <StackPanel Grid.Row="1" HorizontalAlignment="Right" Width="280" Margin="0 15 0 0" VerticalAlignment="Top" Height="298">
-                    <TextBlock Text="Последние загрузки"
+                <Grid Grid.Row="1" HorizontalAlignment="Right" Width="280" Margin="0 15 0 0" VerticalAlignment="Top" Height="298">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Последние загрузки"
                            HorizontalAlignment="Left"
                            Style="{StaticResource ContentTitleStyle}" Margin="0 0 0 5"/>
-
-                </StackPanel>
+                    <UniformGrid Grid.Row="1" Rows="6">
+                        <Border Background="#53566A" CornerRadius="5" Height="35" VerticalAlignment="Center">
+                            <TextBlock Text="Последние загрузки" VerticalAlignment="Center" FontSize="16" Style="{StaticResource ContentTitleStyle}" Margin="10 0 0 0"/>
+                        </Border>
+                        <Border Background="#53566A" CornerRadius="5" Height="35" VerticalAlignment="Center">
+                            <TextBlock Text="Последние загрузки" VerticalAlignment="Center" FontSize="16" Style="{StaticResource ContentTitleStyle}" Margin="10 0 0 0"/>
+                        </Border>
+                        <Border Background="#53566A" CornerRadius="5" Height="35" VerticalAlignment="Center">
+                            <TextBlock Text="Последние загрузки" VerticalAlignment="Center" FontSize="16" Style="{StaticResource ContentTitleStyle}" Margin="10 0 0 0"/>
+                        </Border>
+                        <Border Background="#53566A" CornerRadius="5" Height="35" VerticalAlignment="Center">
+                            <TextBlock Text="Последние загрузки" VerticalAlignment="Center" FontSize="16" Style="{StaticResource ContentTitleStyle}" Margin="10 0 0 0"/>
+                        </Border>
+                        <Border Background="#53566A" CornerRadius="5" Height="35" VerticalAlignment="Center">
+                            <TextBlock Text="Последние загрузки" VerticalAlignment="Center" FontSize="16" Style="{StaticResource ContentTitleStyle}" Margin="10 0 0 0"/>
+                        </Border>
+                        <Border Background="#53566A" CornerRadius="5" Height="35" VerticalAlignment="Center">
+                            <TextBlock Text="Последние загрузки" VerticalAlignment="Center" FontSize="16" Style="{StaticResource ContentTitleStyle}" Margin="10 0 0 0"/>
+                        </Border>
+                    </UniformGrid>
+                </Grid>
             </Grid>
 
             <TextBlock Grid.Row="1"

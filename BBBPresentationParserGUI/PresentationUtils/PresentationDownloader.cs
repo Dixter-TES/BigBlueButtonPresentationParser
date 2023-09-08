@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace BBBPresentationParser
+namespace BBBPresentationParser.PresentationUtils
 {
     internal class PresentationDownloader
     {
@@ -20,7 +20,7 @@ namespace BBBPresentationParser
             try
             {
                 var parser = InitializePresentationParser(url, driver);
-                byte[][]? slides = await parser.Parse();
+                byte[][]? slides = await parser.ParseAsync();
 
                 if (slides is null)
                 {

@@ -3,7 +3,7 @@ using iTextSharp.text.pdf;
 using System.Collections.Generic;
 using System.IO;
 
-namespace BBBPresentationParser
+namespace BBBPresentationParser.PresentationUtils
 {
     internal class Presentation
     {
