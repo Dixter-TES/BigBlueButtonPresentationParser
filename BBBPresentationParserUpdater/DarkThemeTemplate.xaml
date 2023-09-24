@@ -25,9 +25,9 @@
 
     <Style x:Key="ContentBoxBorderStyle" TargetType="Border">
         <Setter Property="CornerRadius" Value="5"/>
-        <Setter Property="BorderThickness" Value="5"/>
-        <Setter Property="BorderBrush" Value="{StaticResource ContentBoxColor}"/>
-        <Setter Property="Background" Value="{StaticResource ContentBoxColor}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DataColor}"/>
+        <Setter Property="Background" Value="{StaticResource DataColor}"/>
     </Style>
 
     <Style x:Key="DataBoxBorderStyle" TargetType="Border">
@@ -117,29 +117,8 @@
         <Setter Property="BorderBrush" Value="{StaticResource DataColor}"/>
     </Style>
 
-    <Style x:Key="LoadingBarStyle" TargetType="Rectangle">
-        <Setter Property="Fill" Value="#4FAD59"/>
-    </Style>
-
-    <Style x:Key="DownLoadButtonAnimationStyle" TargetType="Border">
+    <Style x:Key="LoadingBarStyle" TargetType="Border">
         <Setter Property="CornerRadius" Value="5"/>
-        <Setter Property="Background" Value="{StaticResource DataColor}"/>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource AccentColor}"/>
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-                <Trigger.EnterActions>
-                    <BeginStoryboard x:Name="downloadStoryboard">
-                        <Storyboard RepeatBehavior="Forever">
-                            <DoubleAnimation Duration="0:0:0.5" From="1" To="0.5" AutoReverse="True" Storyboard.TargetProperty="Opacity"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </Trigger.EnterActions>
-                <Trigger.ExitActions>
-                    <RemoveStoryboard BeginStoryboardName="downloadStoryboard"/>
-                </Trigger.ExitActions>
-            </Trigger>
-        </Style.Triggers>
+        <Setter Property="BorderThickness" Value="0"/>
     </Style>
 </ResourceDictionary>

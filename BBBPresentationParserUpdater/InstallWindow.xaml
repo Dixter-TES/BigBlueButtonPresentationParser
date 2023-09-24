@@ -32,16 +32,15 @@
                                MouseDown="TitleLb_MouseDown"/>
             </Border>
             <DockPanel VerticalAlignment="Bottom" Grid.Row="1">
-                <Border Style="{StaticResource ContentBoxBorderStyle}" CornerRadius="3" BorderThickness="21" HorizontalAlignment="Left" Margin="22 0 0 0" Width="369" Height="41">
-                    <Border.BorderBrush>
+                <Border Style="{StaticResource LoadingBarStyle}" HorizontalAlignment="Left" Margin="22 0 0 0" Width="369" Height="41">
+                    <Border.Background>
                         <LinearGradientBrush StartPoint="0 0" EndPoint="1 0">
-                            <GradientStop Color="#3F4252" Offset="1"/>
-                            <GradientStop x:Name="gr1" Color="#3F4252" Offset="0.501"/>
+                            <GradientStop Color="#53566A" Offset="1"/>
+                            <GradientStop x:Name="gr1" Color="#53566A" Offset="0.501"/>
                             <GradientStop x:Name="gr" Color="#4FAD59" Offset="0.5"/>
                             <GradientStop Color="#4FAD59" Offset="0"/>
                         </LinearGradientBrush>
-                    </Border.BorderBrush>
-                    <Rectangle Style="{StaticResource LoadingBarStyle}" Width="300" Height="41" HorizontalAlignment="Left"/>
+                    </Border.Background>
                 </Border>
                 <Border Style="{StaticResource ContentBoxBorderStyle}"
                         HorizontalAlignment="Left"
