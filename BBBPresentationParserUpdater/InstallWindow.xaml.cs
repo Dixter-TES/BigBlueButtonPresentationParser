@@ -105,7 +105,7 @@ namespace BBBPresentationParserUpdater
 
             gr.Offset = val - 0.001;
             gr1.Offset = val;
-            percentLb.Content = $"{(int)Math.Round(val * 100)}%";
+            percentLb.Text = $"{(int)Math.Round(val * 100)}%";
         }
 
         private void InstallButton_Click(object sender, RoutedEventArgs e)

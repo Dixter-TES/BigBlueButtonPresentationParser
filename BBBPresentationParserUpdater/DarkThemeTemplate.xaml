@@ -13,8 +13,6 @@
     <SolidColorBrush x:Key="TextColor" Color="#E3E3E3"/>
     <SolidColorBrush x:Key="AccentColor" Color="#4A47CB"/>
 
-    <ImageBrush x:Key="BlankPreviewImage" ImageSource="/Resources/darkBlank.png"/>
-
     <Style TargetType="{x:Type Window}">
         <Setter Property="FontFamily" Value="Segoe UI" />
     </Style>
@@ -26,7 +24,7 @@
     </Style>
 
     <Style x:Key="ContentBoxBorderStyle" TargetType="Border">
-        <Setter Property="CornerRadius" Value="14"/>
+        <Setter Property="CornerRadius" Value="5"/>
         <Setter Property="BorderThickness" Value="5"/>
         <Setter Property="BorderBrush" Value="{StaticResource ContentBoxColor}"/>
         <Setter Property="Background" Value="{StaticResource ContentBoxColor}"/>
@@ -95,6 +93,11 @@
         <Setter Property="FontSize" Value="18" />
     </Style>
 
+    <Style x:Key="ImportantStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="FontSize" Value="22" />
+    </Style>
+
     <Style x:Key="VersionStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="FontSize" Value="14"/>
@@ -112,6 +115,10 @@
         <Setter Property="BorderThickness" Value="1 0 1 1"/>
         <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
         <Setter Property="BorderBrush" Value="{StaticResource DataColor}"/>
+    </Style>
+
+    <Style x:Key="LoadingBarStyle" TargetType="Rectangle">
+        <Setter Property="Fill" Value="#4FAD59"/>
     </Style>
 
     <Style x:Key="DownLoadButtonAnimationStyle" TargetType="Border">
