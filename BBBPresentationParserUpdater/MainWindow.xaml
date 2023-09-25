@@ -24,9 +24,9 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         
-        <Label x:Name="titleLb" VerticalAlignment="Top" Grid.Row="0" Style="{StaticResource TitleStyle}" HorizontalAlignment="Center" Content="Доступно новое обновление" Foreground="#DFDFDF"></Label>
+        <TextBlock x:Name="titleLb" VerticalAlignment="Top" Grid.Row="0" Style="{StaticResource TitleStyle}" HorizontalAlignment="Center" Text="Доступно новое обновление" Foreground="#DFDFDF"></TextBlock>
         <StackPanel Grid.Row="1">
-            <TextBlock Name="descTb" Width="300" TextWrapping="Wrap" Style="{StaticResource SimpleTextStyle}">
+            <TextBlock Name="descTb" Width="300" TextWrapping="Wrap" Style="{StaticResource TitleStyle}">
             </TextBlock>
         </StackPanel>
         <DockPanel VerticalAlignment="Bottom" Grid.Row="2">

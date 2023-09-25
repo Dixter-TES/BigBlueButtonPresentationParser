@@ -97,7 +97,7 @@ namespace BBBPresentationParserUpdater
 
             statusTb.Text = $"Удаление резервной копии...";
             MessageBox.Show("Установка завершена!");
-            Process.Start("cmd", $"/c timeout 1 & rmdir /s /q Temp");
+            Process.Start("cmd", $"/c timeout 1 & rmdir /s /q Temp & start {MainWindow.GetStartupExe()}");
             Environment.Exit(0);
         }
 
