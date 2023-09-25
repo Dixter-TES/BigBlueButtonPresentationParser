@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 
 namespace BBBPresentationParserUpdater
 {
@@ -21,6 +22,8 @@ namespace BBBPresentationParserUpdater
             UpdateLoadingBar();
             Install();
         }
+
+        private void TitleLb_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
 
         private void MoveDirectoryContent(string from, string to, params string[] withoutFiles)
         {
