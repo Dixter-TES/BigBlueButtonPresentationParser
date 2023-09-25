@@ -2,7 +2,7 @@
 {
     public static class MathExtension
     {
-        public static double Lerp(double a, double b, double t) => a + t * (b - a);
+        public static double Lerp(double a, double b, double t) => a + (t * (b - a));
 
         public static double InverseLerp(double a, double b, double v) => (v - a) / (b - a);
 

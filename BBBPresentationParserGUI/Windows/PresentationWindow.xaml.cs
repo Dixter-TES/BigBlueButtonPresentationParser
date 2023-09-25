@@ -78,7 +78,6 @@ namespace BBBPresentationParser.Windows
             return null;
         }
 
-
         private async void NextSlide_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (_viewer is null)

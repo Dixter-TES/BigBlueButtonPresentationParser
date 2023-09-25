@@ -23,7 +23,6 @@ namespace BBBPresentationParser
             {
                 Headless = headless
             });
-
         }
     }
 }

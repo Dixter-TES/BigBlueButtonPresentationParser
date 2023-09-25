@@ -46,7 +46,6 @@ namespace BBBPresentationParserUpdater
             }
             catch { }
 
-
             string tempDir = System.IO.Path.Combine(from, to);
 
             foreach (string file in files)

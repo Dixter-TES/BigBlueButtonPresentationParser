@@ -42,7 +42,7 @@ namespace BBBPresentationParser.PresentationUtils
                 var svgElement = await page.QuerySelectorAsync("svg");
                 var svgElementSize = await svgElement.BoundingBoxAsync();
 
-                int width = (int)(svgElementSize.Width + svgElementSize.X * 2);
+                int width = (int)(svgElementSize.Width + (svgElementSize.X * 2));
                 int height = (int)(svgElementSize.Height + svgElementSize.Y);
 
                 await page.SetViewportAsync(new ViewPortOptions { Width = width + 10, Height = height + 50 });
