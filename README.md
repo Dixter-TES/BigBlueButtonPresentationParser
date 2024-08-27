@@ -1,4 +1,4 @@
-# Парсер презентаций BigBlueButton
+# Парсер презентаций BigBlueButton [УСТАРЕЛО]
 ![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/v/tag/Dixter-TES/BigBlueButtonPresentationParser?include_prereleases)
 [![CodeFactor](https://www.codefactor.io/repository/github/dixter-tes/bigbluebuttonpresentationparser/badge/master)](https://www.codefactor.io/repository/github/dixter-tes/bigbluebuttonpresentationparser/overview/master)
 
