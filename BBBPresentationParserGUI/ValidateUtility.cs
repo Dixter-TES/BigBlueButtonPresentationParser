@@ -3,7 +3,7 @@
 
 namespace BBBPresentationParser
 {
-    internal class ValidatorUtility
+    internal static class ValidatorUtility
     {
         public static bool ValidatePresentationUrl(ref string url)
         {
@@ -12,7 +12,7 @@ namespace BBBPresentationParser
                 (!url.Contains("bsu.edu.ru/") && !url.Contains("bsu-eis.ru/")))
                 return false;
 
-            string[] parts = url.Split('/');
+            var parts = url.Split('/');
             url = string.Join("/", parts.Take(parts.Length - 1).ToArray()) + "/";
             return true;
         }

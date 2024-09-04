@@ -27,36 +27,36 @@ namespace BBBPresentationParser
 
         private void DownloadButton_Click(object sender, RoutedEventArgs e)
         {
-            string url = urlInputTb.Text;
+            var url = urlInputTb.Text;
             if (!ValidatorUtility.ValidatePresentationUrl(ref url))
                 return;
 
             var token = ChangeControlState(false);
-            ImageSource defaultImage = previewImg.ImageSource;
+            var defaultImage = previewImg.ImageSource;
 
-            DownloadManager downloadManager = new DownloadManager();
+            var downloadManager = new DownloadManager();
 
-            downloadManager.DownloadFailed += (sender, e) =>
+            downloadManager.DownloadFailed += (_, downloadResult) =>
             {
                 AudioCenter.PlaySound(Properties.Resources.DownloadFailedSound);
-                MessageBox.Show(e.ErrorMessage);
+                MessageBox.Show(downloadResult.ErrorMessage);
                 token?.Cancel();
                 Thread.Sleep(200);
                 ChangeControlState(true);
                 previewImg.ImageSource = defaultImage;
             };
 
-            downloadManager.DownloadCompleted += (sender, e) =>
+            downloadManager.DownloadCompleted += (_, downloadResult) =>
             {
                 AudioCenter.PlaySound(Properties.Resources.DownloadCompletedSound);
                 previewImg.ImageSource = defaultImage;
 
                 try
                 {
-                    if (e.Content != null)
-                        SavePresentationDialog(e.Content);
+                    if (downloadResult.Content != null)
+                        SavePresentationDialog(downloadResult.Content);
                     else
-                        throw new ArgumentNullException($"{nameof(e.Content)} равен NULL!");
+                        throw new ArgumentNullException($"{nameof(downloadResult.Content)} равен NULL!");
                 }
                 catch (Exception ex)
                 {
@@ -93,7 +93,7 @@ namespace BBBPresentationParser
             if (enabled)
                 return null;
 
-            CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
+            var cancelTokenSource = new CancellationTokenSource();
 
             Animation.ButtonTextAnimation(downloadButton, new[]
             {
@@ -108,9 +108,11 @@ namespace BBBPresentationParser
 
         private static void SavePresentationDialog(Presentation presentation)
         {
-            SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.Filter = "PDF-Файлы|*.pdf";
-            saveDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            var saveDialog = new SaveFileDialog
+            {
+                Filter = "PDF-Файлы|*.pdf",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)
+            };
 
             if ((bool)saveDialog.ShowDialog()!)
             {

@@ -7,7 +7,7 @@ namespace BBBPresentationParser
 {
     internal class Presentation
     {
-        private List<byte[]> _slides = new();
+        private readonly List<byte[]> _slides = new();
 
         public byte[][] Slides => _slides.ToArray();
 
@@ -17,7 +17,7 @@ namespace BBBPresentationParser
 
         public string? SavePdf(string path)
         {
-            if (_slides == null)
+            if (_slides.Count == 0)
                 return null;
 
             var im = Image.GetInstance(_slides[0]);

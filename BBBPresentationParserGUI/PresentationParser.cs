@@ -8,7 +8,7 @@ namespace BBBPresentationParser
 {
     internal class PresentationParser
     {
-        private IBrowser _browser;
+        private readonly IBrowser _browser;
         private readonly string _baseUrl;
 
         private const int MaxSlidesCount = 200;
@@ -32,7 +32,7 @@ namespace BBBPresentationParser
             var page = await _browser.NewPageAsync();
             var screenshots = new List<byte[]>();
 
-            for (int i = 1; i < MaxSlidesCount; i++)
+            for (var i = 1; i < MaxSlidesCount; i++)
             {
                 try
                 {
@@ -45,8 +45,8 @@ namespace BBBPresentationParser
                     var svgElement = await page.QuerySelectorAsync("svg");
                     var svgElementSize = await svgElement.BoundingBoxAsync();
 
-                    int width = (int)(svgElementSize.Width + svgElementSize.X * 2);
-                    int height = (int)(svgElementSize.Height + svgElementSize.Y);
+                    var width = (int)(svgElementSize.Width + svgElementSize.X * 2);
+                    var height = (int)(svgElementSize.Height + svgElementSize.Y);
 
                     await page.SetViewportAsync(new ViewPortOptions { Width = width + 10, Height = height + 50 });
 
