@@ -9,7 +9,7 @@ namespace BBBPresentationParser
         {
             if (string.IsNullOrEmpty(url) ||
                 !url.StartsWith("https://") ||
-                (!url.Contains("bsu.edu.ru/") && !url.Contains("bsu-eis.ru/")))
+                (!url.Contains("bsuedu.ru/") && !url.Contains("bsu-eis.ru/")))
                 return false;
 
             var parts = url.Split('/');
